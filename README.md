@@ -7,7 +7,7 @@ it: a field guide that explains in plain words what ad agencies actually do, wha
 an Ad math calculator; and a Wins board where owners share what worked. Built on [Anvil](https://anvil.works).
 
 - **App repo:** github.com/arkulinskis/marguru (branch `master`). Anvil pulls `master`.
-- **Live:** not yet published (planned: https://marguru.anvil.app).
+- **Live:** https://marguru.anvil.app
 
 ## What it does
 
