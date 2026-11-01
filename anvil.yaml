@@ -285,7 +285,7 @@ metadata:
   title: 'Marguru: market your business like an ad agency would'
 name: Marguru
 native_deps:
-  head_html: "<script src=\"_/theme/legal-kit.js?v=96e7b76305\"></script>\n<!-- seo:start (APP_MAKER/seo: edit seo/apps/marguru.json\
+  head_html: "<script src=\"_/theme/legal-kit.js?v=b1897db462\"></script>\n<!-- seo:start (APP_MAKER/seo: edit seo/apps/marguru.json\
     \ and run seo.py, not here) -->\n<link rel=\"canonical\" href=\"https://marguru.anvil.app/\">\n<meta name=\"robots\" content=\"\
     index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1\">\n<meta name=\"keywords\" content=\"small\
     \ business marketing, AI marketing prompts, ChatGPT prompts for marketing, marketing plan template, Google Business Profile\
