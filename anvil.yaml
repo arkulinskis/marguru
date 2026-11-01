@@ -279,16 +279,48 @@ db_schema:
     server: full
     title: Wins
 metadata:
-  description: 'Tell Marguru about your business and get a step-by-step set of copy-ready AI prompts for ads, Google Maps,
-    SEO, content and reporting: the work an ad agency does, explained.'
+  description: Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and reporting, in the
+    order an ad agency would do the work.
   logo_img: asset:icon-512.png
-  title: 'Marguru: market your business like an agency would'
+  title: 'Marguru: market your business like an ad agency would'
 name: Marguru
 native_deps:
-  head_html: "<script src=\"_/theme/legal-kit.js?v=96e7b76305\"></script>\n<meta name=\"viewport\" content=\"width=device-width,\
-    \ initial-scale=1, viewport-fit=cover\">\n<meta name=\"theme-color\" content=\"#f6f1e7\">\n<meta name=\"apple-mobile-web-app-capable\"\
-    \ content=\"yes\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"\
-    https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap\"\
+  head_html: "<script src=\"_/theme/legal-kit.js?v=96e7b76305\"></script>\n<!-- seo:start (APP_MAKER/seo: edit seo/apps/marguru.json\
+    \ and run seo.py, not here) -->\n<link rel=\"canonical\" href=\"https://marguru.anvil.app/\">\n<meta name=\"robots\" content=\"\
+    index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1\">\n<meta name=\"keywords\" content=\"small\
+    \ business marketing, AI marketing prompts, ChatGPT prompts for marketing, marketing plan template, Google Business Profile\
+    \ tips, local SEO for small business, Google Ads for beginners, what does an ad agency do, DIY marketing\">\n<meta name=\"\
+    author\" content=\"Arkvital\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:site_name\" content=\"\
+    Marguru\">\n<meta property=\"og:title\" content=\"Marguru: market your business like an ad agency would\">\n<meta property=\"\
+    og:description\" content=\"Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and\
+    \ reporting, in the order an ad agency would do the work.\">\n<meta property=\"og:locale\" content=\"en_CA\">\n<meta property=\"\
+    og:url\" content=\"https://marguru.anvil.app/\">\n<meta property=\"og:image\" content=\"https://marguru.anvil.app/_/theme/og-image.png\"\
+    >\n<meta property=\"og:image:width\" content=\"1200\"><meta property=\"og:image:height\" content=\"630\">\n<meta property=\"\
+    og:image:alt\" content=\"Marguru: A pocket marketing agency: copy-ready AI prompts in agency order\">\n<meta name=\"twitter:card\"\
+    \ content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Marguru: market your business like an ad agency\
+    \ would\">\n<meta name=\"twitter:description\" content=\"Describe your business and get copy-ready AI prompts for ads,\
+    \ Google Maps, SEO, content and reporting, in the order an ad agency would do the work.\">\n<meta name=\"twitter:image\"\
+    \ content=\"https://marguru.anvil.app/_/theme/og-image.png\">\n<link rel=\"alternate\" type=\"text/plain\" title=\"Marguru\
+    \ for AI assistants\" href=\"https://marguru.anvil.app/llms.txt\">\n<script type=\"application/ld+json\">{\"@context\"\
+    : \"https://schema.org\", \"@graph\": [{\"@type\": \"WebApplication\", \"@id\": \"https://marguru.anvil.app/#app\", \"\
+    name\": \"Marguru\", \"url\": \"https://marguru.anvil.app/\", \"description\": \"Describe your business and get copy-ready\
+    \ AI prompts for ads, Google Maps, SEO, content and reporting, in the order an ad agency would do the work.\", \"image\"\
+    : \"https://marguru.anvil.app/_/theme/og-image.png\", \"inLanguage\": \"en\", \"publisher\": {\"@id\": \"https://arkvital.com/#org\"\
+    }, \"keywords\": \"small business marketing, AI marketing prompts, ChatGPT prompts for marketing, marketing plan template,\
+    \ Google Business Profile tips, local SEO for small business, Google Ads for beginners, what does an ad agency do, DIY\
+    \ marketing\", \"applicationCategory\": \"BusinessApplication\", \"operatingSystem\": \"Any (web browser)\", \"browserRequirements\"\
+    : \"Requires JavaScript and a modern web browser\", \"featureList\": [\"A playbook of 25 to 35 prompts filled in with\
+    \ your business details\", \"Eight stages in the order an agency works\", \"Copy a prompt or open it in ChatGPT or Claude\"\
+    , \"A field guide to what agencies do, charge and how to spot a bad one\", \"An ad maths calculator and a wins board\"\
+    , \"Download the playbook as Markdown\"], \"audience\": {\"@type\": \"Audience\", \"audienceType\": \"Small business owners\
+    \ who do their own marketing\"}}, {\"@type\": \"WebSite\", \"@id\": \"https://marguru.anvil.app/#site\", \"url\": \"https://marguru.anvil.app/\"\
+    , \"name\": \"Marguru\", \"publisher\": {\"@id\": \"https://arkvital.com/#org\"}}, {\"@type\": \"Organization\", \"@id\"\
+    : \"https://arkvital.com/#org\", \"name\": \"Arkvital\", \"url\": \"https://arkvital.com\", \"email\": \"arkvital@outlook.com\"\
+    , \"address\": {\"@type\": \"PostalAddress\", \"addressLocality\": \"Montreal\", \"addressRegion\": \"QC\", \"addressCountry\"\
+    : \"CA\"}}]}</script>\n<!-- seo:end -->\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\"\
+    >\n<meta name=\"theme-color\" content=\"#f6f1e7\">\n<meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\n<link\
+    \ rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"\
+    \ crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap\"\
     \ rel=\"stylesheet\">\n<link id=\"ui-favicon\" rel=\"icon\" type=\"image/svg+xml\" href=\"_/theme/icon.svg?v=4ffcccbf53\"\
     >\n<link rel=\"apple-touch-icon\" href=\"_/theme/icon-180.png?v=4ffcccbf53\">\n<script>\n/* Keep our tab icon: Anvil adds\
     \ its own <link rel=\"icon\">, so drop any other icon link. */\n(function () {\n  function keep() {\n    var ours = document.getElementById('ui-favicon');\n\
