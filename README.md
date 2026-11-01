@@ -28,7 +28,7 @@ an Ad math calculator; and a Wins board where owners share what worked. Built on
 - **Ad math** (`#math`): budget → clicks → leads → customers → profit, cost per lead and per customer, break-even cost per click, most you
   can pay per lead, agency fee share, and a verdict with the lever to fix. Defaults: LocaliQ/WordStream 2025 US search averages.
 - **Wins board** (`#wins`): read and filter by channel. Demo wins are labelled "Example".
-- Sign-up with email and password, a feedback form ("Send feedback" in the footer and menu), and the Privacy & Terms page.
+- Sign-up with email and password, feedback through Prepsto ("Submit feedback" in the footer and menu opens its panel), and the Privacy & Terms page.
 
 **For members:**
 - **Desk** (`#home`): your plans with a progress ring and the next prompt, a new-plan card, a Guru tip of the day (checked facts with
