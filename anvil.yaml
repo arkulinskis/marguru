@@ -329,7 +329,7 @@ native_deps:
     })();\n</script>\n\n<!-- Prepsto feedback panel: every \"Submit feedback\" link and button opens it (it is the only feedback\
     \ channel). No floating button, no cookies, nothing loads until it is opened. Codes: APP_MAKER/prepsto-links.json -->\n\
     <script src=\"https://prepsto.com/_/theme/widget.js\" data-prepsto=\"ftg7ber\" data-button=\"false\" data-label=\"Submit\
-    \ feedback\" async></script>\n<link rel=\"stylesheet\" href=\"_/theme/app.css?v=f85c51398d\">\n<script src=\"_/theme/app.js?v=e8095cf0b7\"\
+    \ feedback\" async></script>\n<link rel=\"stylesheet\" href=\"_/theme/app.css?v=7ae64ff9b5\">\n<script src=\"_/theme/app.js?v=791d6f922d\"\
     ></script>\n"
 package_name: Marguru
 runtime_options:

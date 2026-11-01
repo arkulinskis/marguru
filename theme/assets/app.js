@@ -1798,14 +1798,20 @@
     bandLead: 'Build a playbook now, no account needed. Save it when you\'re ready.'
   };
 
+  // The product in three panes (CSS-only loop): describe the business → the playbook → a prompt with your details filled in
   function heroArt() {
-    return '<div class="lp-art" aria-hidden="true"><div class="page"><div class="tabs"><i>1</i><i class="on">2</i><i>3</i><i>4</i><i>5</i></div>' +
-      '<span class="stamp">DONE</span><div class="eb">Stage 2 · Google Maps</div><h4>Build an honest review engine</h4>' +
-      '<div class="why">Why agencies do this: reviews count toward "prominence" in Google\'s local ranking.</div>' +
-      '<div class="pre">Act as a customer-experience consultant for a <mark>bakery in Verdun</mark>.<br>MY BUSINESS<br>- Name: <mark>Crumb &amp; Co.</mark><br>- Best customers: <mark>young families</mark>...<br>RULES: ask ALL customers...</div>' +
-      '<div class="btns"><span class="p">Copy prompt</span><span>ChatGPT ↗</span><span>Claude ↗</span></div></div>' +
-      '<div class="sticky">12 of 31 done.<br>Next: write your search ads<small>— your playbook</small></div>' +
-      '<svg class="arrow" viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M6 70C30 70 58 58 78 30"/><path d="M62 28l17-2 1 17"/></svg></div>';
+    var join = '<div class="lp-join">' + UI.icon('arrow') + '</div>';
+    var field = function (label, val) { return '<label>' + label + '<span><i style="--w:' + (val.length * 0.58 + 0.3).toFixed(2) + 'em">' + val + '</i></span></label>'; };
+    var stages = [['1', 'Your foundations', 'brand + offer'], ['2', 'Google Maps', '6 prompts'], ['3', 'Reviews', '4 prompts'], ['4', 'Search ads', '5 prompts'], ['5', 'Monthly report', '3 prompts']];
+    return '<div class="lp-demo" aria-hidden="true">' +
+      '<div class="lp-pane"><h5><span>1 · Tell us</span><b>2 minutes</b></h5><div class="lp-f">' +
+        field('Business', 'Bakery') + field('Where', 'Verdun') + field('Best customers', 'Young families') + '<span class="go">Build my playbook</span></div></div>' + join +
+      '<div class="lp-pane"><h5><span>2 · Your playbook</span><b>31 steps</b></h5><ul class="lp-stages">' +
+        stages.map(function (s, i) { return '<li' + (i === 1 ? ' class="on"' : '') + '><i>' + s[0] + '</i>' + s[1] + '<small>' + s[2] + '</small></li>'; }).join('') + '</ul></div>' + join +
+      '<div class="lp-pane"><h5><span>3 · Copy, paste, done</span><b>any AI chat</b></h5><span class="lp-stamp">DONE</span>' +
+        '<div class="lp-pre">Act as a local-search consultant for a <mark>bakery in Verdun</mark>.<br>MY BUSINESS<br>- Best customers: <mark>young families</mark><br>' +
+        'TASK: write my Google Business Profile description, 750 characters, following Google\'s rules…</div>' +
+        '<div class="lp-btns"><span class="p">Copy prompt</span><span>ChatGPT ↗</span><span>Claude ↗</span><b>✓ Copied</b></div></div></div>';
   }
 
   UI.page('landing', { title: 'Market your business like an agency would' }, function (view, ctx) {
@@ -1814,10 +1820,10 @@
       : '<a class="ui-btn primary lg" href="#build" data-go="build">Build my free playbook ' + UI.icon('arrow') + '</a>' +
         '<a class="ui-btn lg" href="#plan/example" data-go="plan/example">See an example</a>';
     view.innerHTML =
-      '<section class="lp-hero"><div class="ui-wrap"><div>' +
-        '<div class="eyebrow">' + esc(C.eyebrow) + '</div><h1>' + C.title + '</h1><p class="lp-lead">' + esc(C.lead) + '</p>' +
-        '<div class="lp-cta">' + primary + '</div>' +
-        '<div class="lp-proof">' + C.proof.map(function (p) { return '<span>' + UI.icon('check') + esc(p) + '</span>'; }).join('') + '</div>' +
+      '<section class="lp-hero"><div class="ui-wrap"><div class="lp-top">' +
+        '<div><div class="eyebrow">' + esc(C.eyebrow) + '</div><h1>' + C.title + '</h1></div>' +
+        '<div><p class="lp-lead">' + esc(C.lead) + '</p><div class="lp-cta">' + primary + '</div>' +
+        '<div class="lp-proof">' + C.proof.map(function (p) { return '<span>' + UI.icon('check') + esc(p) + '</span>'; }).join('') + '</div></div>' +
       '</div>' + heroArt() + '</div></section>' +
       '<section class="lp-section"><div class="ui-wrap"><div class="lp-head"><h2>' + C.jobsTitle + '</h2><p>' + esc(C.jobsLead) + '</p></div>' +
         '<div class="lp-jobs">' + MG.STAGES.map(function (s) {
