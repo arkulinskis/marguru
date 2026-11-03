@@ -1796,7 +1796,7 @@
   var COPY = {
     eyebrow: 'Your pocket marketing agency',
     title: 'Market your business <em>like an agency would</em>',
-    lead: 'Tell Marguru about your business. Get a step-by-step playbook of copy-ready AI prompts for the jobs agencies commonly charge $500 to $3,000+ a month for: Google Maps, reviews, ads, SEO, content and reports.',
+    lead: 'Tell Marguru about your business. Get a step-by-step playbook of copy-ready AI prompts for the work agencies charge for: Google Maps, reviews, ads, SEO, content and reports. (An SEO agency averages $3,209 a month, in a survey of 439 providers by Ahrefs.)',
     proof: ['Free, no card', 'Works with ChatGPT, Claude or any AI chat', 'Checked against Google\'s own rules'],
     jobsTitle: 'Everyone\'s opening an agency. <em>Here\'s what they do.</em>',
     jobsLead: 'Strip away the jargon and an agency does eight jobs. Your playbook walks through the same eight, in the same order.',
