@@ -1,0 +1,160 @@
+<anvil-form layout="Marguru.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="lp-page">
+      <section class="lp-hero">
+        <div class="ui-wrap">
+          <div class="lp-top">
+            <div><h1>Market your business <em>like an agency would</em></h1></div>
+            <div>
+              <p class="lp-lead">Your pocket marketing agency. Tell Marguru about your business. Get a step-by-step playbook of copy-ready AI prompts for the work agencies charge for: Google Maps, reviews, ads, SEO, content and reports. (An SEO agency averages $3,209 a month, in a survey of 439 providers by Ahrefs.)</p>
+              <div class="lp-cta" anvil:name="guest_cta">
+                <a class="ui-btn primary lg" href="#build">Build my free playbook <i class="ic ic-arrow"></i></a>
+                <a class="ui-btn lg" href="#plan/example">See an example</a>
+              </div>
+              <div class="lp-cta" anvil:name="member_cta">
+                <a class="ui-btn primary lg" href="#home">Open your desk <i class="ic ic-arrow"></i></a>
+                <a class="ui-btn lg" href="#build">New plan</a>
+              </div>
+              <div class="lp-proof">
+                <span><i class="ic ic-check"></i>Free, no card</span>
+                <span><i class="ic ic-check"></i>Works with ChatGPT, Claude or any AI chat</span>
+                <span><i class="ic ic-check"></i>Checked against Google's own rules</span>
+              </div>
+            </div>
+          </div>
+          <!-- The product in three panes (CSS-only loop): describe the business, the playbook, a prompt with your details filled in -->
+          <div class="lp-demo" aria-hidden="true">
+            <div class="lp-pane">
+              <div class="lp-pane-h"><span>1 · Tell us</span><b>2 minutes</b></div>
+              <div class="lp-f">
+                <label>Business<span><i style="--w:3.78em">Bakery</i></span></label>
+                <label>Where<span><i style="--w:3.78em">Verdun</i></span></label>
+                <label>Best customers<span><i style="--w:8.42em">Young families</i></span></label>
+                <span class="go">Build my playbook</span>
+              </div>
+            </div>
+            <div class="lp-join"><i class="ic ic-arrow"></i></div>
+            <div class="lp-pane">
+              <div class="lp-pane-h"><span>2 · Your playbook</span><b>31 steps</b></div>
+              <ul class="lp-stages">
+                <li><i>1</i>Your foundations<small>brand + offer</small></li>
+                <li class="on"><i>2</i>Google Maps<small>6 prompts</small></li>
+                <li><i>3</i>Reviews<small>4 prompts</small></li>
+                <li><i>4</i>Search ads<small>5 prompts</small></li>
+                <li><i>5</i>Monthly report<small>3 prompts</small></li>
+              </ul>
+            </div>
+            <div class="lp-join"><i class="ic ic-arrow"></i></div>
+            <div class="lp-pane">
+              <div class="lp-pane-h"><span>3 · Copy, paste, done</span><b>any AI chat</b></div>
+              <span class="lp-stamp">DONE</span>
+              <div class="lp-pre">Act as a local-search consultant for a <mark>bakery in Verdun</mark>.<br>MY BUSINESS<br>- Best customers: <mark>young families</mark><br>TASK: write my Google Business Profile description, 750 characters, following Google's rules…</div>
+              <div class="lp-btns"><span class="p">Copy prompt</span><span>ChatGPT ↗</span><span>Claude ↗</span><b>✓ Copied</b></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section ytf" id="watch">
+        <div class="ui-wrap">
+          <div class="ytf-in">
+            <div class="ytf-copy">
+              <h2>See Marguru in about a minute</h2>
+              <p>A short video tour of what Marguru does and how it works.</p>
+              <a class="ytf-link" href="https://www.youtube.com/watch?v=bTpH6t4KN2o" target="_blank" rel="noopener"><svg viewBox="0 0 28 20" width="20" height="14" aria-hidden="true"><rect width="28" height="20" rx="5" fill="#FF0033"/><path d="M11.2 5.8v8.4l7.3-4.2z" fill="#fff"/></svg>Watch on YouTube &#8599;</a>
+            </div>
+            <div>
+              <div class="ytf-frame" anvil:dom-node="yt_frame">
+                <button type="button" class="ytf-cover" anvil:dom-node="yt_cover" aria-label="Play the Marguru video (1:14)">
+                  <img src="_/theme/yt-cover.jpg" alt="" loading="lazy" decoding="async" width="960" height="540">
+                  <span class="ytf-play" aria-hidden="true"><svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.3.3 34 .3 34 .3s-21.3 0-26.5 1.4a8.5 8.5 0 0 0-6 6C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6c5.2 1.4 26.5 1.4 26.5 1.4s21.3 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#FF0033"/><path d="M45 24 27 14v20z" fill="#fff"/></svg></span>
+                  <span class="ytf-len">1:14</span>
+                </button>
+              </div>
+              <p class="ytf-note">The video loads from YouTube when you press play.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-head">
+            <h2>Everyone's opening an agency. <em>Here's what they do.</em></h2>
+            <p>Strip away the jargon and an agency does eight jobs. Your playbook walks through the same eight, in the same order.</p>
+          </div>
+          <anvil-component type="RepeatingPanel" name="jobs_panel" prop:item_template="Marguru.Items.JobTile" prop:role='["lp-jobs"]'></anvil-component>
+          <p class="lp-more"><a class="ui-btn" href="#guide"><i class="ic ic-book"></i>Read the field guide</a></p>
+        </div>
+      </section>
+
+      <section class="lp-section" id="how">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>How it works</h2><p>From "I should really do some marketing" to a plan you can actually follow.</p></div>
+          <div class="lp-steps">
+            <div class="ui-card lp-step"><h3>Describe your business</h3><p class="muted">Three minutes: what you sell, who buys, where, your goal and your budget (even $0).</p></div>
+            <div class="ui-card lp-step"><h3>Get your playbook</h3><p class="muted">Around 25 to 35 prompts in 8 stages, filled in with your details and ordered like an agency would do them.</p></div>
+            <div class="ui-card lp-step"><h3>Paste, do, tick</h3><p class="muted">Copy a prompt into ChatGPT or Claude, use the answer, tick it off. Your progress and notes are saved.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>More than a list of prompts</h2></div>
+          <div class="lp-feats">
+            <div class="lp-feature"><i class="ic ic-book"></i><h3>The field guide</h3><p>What agencies actually do, what they charge, and the red flags, in plain words with every source.</p></div>
+            <div class="lp-feature"><i class="ic ic-calc"></i><h3>Ad math</h3><p>Before you spend: what a budget buys, what a customer is worth, and the most you can pay per click.</p></div>
+            <div class="lp-feature"><i class="ic ic-trophy"></i><h3>Wins board</h3><p>Small owners sharing one marketing move that worked. Steal freely, clap for what helped.</p></div>
+            <div class="lp-feature"><i class="ic ic-check"></i><h3>Progress you can see</h3><p>Tick prompts off, star favourites, keep notes on what the AI gave you. Stages stamp themselves done.</p></div>
+            <div class="lp-feature"><i class="ic ic-download"></i><h3>Take it with you</h3><p>Download your whole playbook as one file, or open any prompt straight in ChatGPT or Claude.</p></div>
+            <div class="lp-feature"><i class="ic ic-shield"></i><h3>Honest by design</h3><p>Every prompt follows Google's, Meta's and the FTC's rules, so you never get advice that gets you suspended.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>What Marguru <em>won't</em> help you do</h2><p>Some agencies still sell these. They can get your listing suspended, your ads rejected, or worse.</p></div>
+          <div class="lp-rules">
+            <div class="lp-rule"><b><i class="ic ic-x"></i>Fake or bought reviews</b><p>Google bans them, and the US FTC made them illegal in 2024.</p></div>
+            <div class="lp-rule"><b><i class="ic ic-x"></i>Asking only happy customers</b><p>"Review gating" breaks Google's policy. Marguru asks everyone.</p></div>
+            <div class="lp-rule"><b><i class="ic ic-x"></i>Guaranteed #1 rankings</b><p>"No one can guarantee a #1 ranking on Google." That's Google talking.</p></div>
+            <div class="lp-rule"><b><i class="ic ic-x"></i>Keywords in your business name</b><p>It breaks Google Business Profile guidelines and can get you suspended.</p></div>
+            <div class="lp-rule"><b><i class="ic ic-x"></i>Buying links</b><p>Google's spam policies forbid link schemes. Marguru helps you earn real ones.</p></div>
+            <div class="lp-rule"><b><i class="ic ic-x"></i>Copy that singles people out</b><p>"Struggling with debt?" Meta rejects ads that imply personal traits.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>Questions</h2></div>
+          <div class="lp-faq">
+            <details><summary>Is it free?</summary><p>Yes. Building a playbook, the field guide, Ad math and the Wins board are free. You can even try it without an account; sign up to save your plans.</p></details>
+            <details><summary>Do I need ChatGPT?</summary><p>You need any AI chat: ChatGPT, Claude, Gemini or Copilot all work, and their free versions are fine. Marguru writes the prompts; you paste them in.</p></details>
+            <details><summary>Can it replace an agency?</summary><p>For many small businesses, much of the monthly work, yes: it's the same jobs, and you know your business best. The field guide explains when hiring still makes sense.</p></details>
+            <details><summary>Where do the facts come from?</summary><p>Google's and Meta's help pages, the FTC, the Ahrefs pricing survey and practitioners' write-ups. Every source is listed in the field guide, with how much to trust it.</p></details>
+            <details><summary>Who sees my business details?</summary><p>Only you. Saved plans live in your account; a plan made before signing up stays in your browser. Wins you post are public, under your display name only.</p></details>
+            <details><summary>Will it get me results?</summary><p>Nobody can promise that, and Marguru won't. It gives you the same steps a good agency follows; results depend on your business, your market and doing the work.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-band">
+            <div><h2>Your first prompt is 3 minutes away.</h2><p>Build a playbook now, no account needed. Save it when you're ready.</p></div>
+            <div class="ui-row" anvil:name="band_guest">
+              <a class="ui-btn primary lg" href="#build">Start now</a>
+              <a class="ui-btn lg" href="#auth/signup">Create a free account</a>
+            </div>
+            <div class="ui-row" anvil:name="band_member">
+              <a class="ui-btn lg" href="#build">Build a playbook</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </anvil-block>
+</anvil-form>

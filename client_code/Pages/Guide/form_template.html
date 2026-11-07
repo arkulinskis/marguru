@@ -1,0 +1,109 @@
+<anvil-form layout="Marguru.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap" anvil:dom-node="wrap" anvil:on-dom:click="self.wrap_click">
+      <div class="ui-page-head">
+        <div>
+          <h1>What ad agencies <em>actually do</em></h1>
+          <p class="muted gd-lead">Everyone and their grandma seems to be opening a marketing agency. Here is what they sell, what it costs, how to spot a bad one, and how to do much of it yourself. Every fact links to its source.</p>
+        </div>
+      </div>
+      <nav class="gd-index" aria-label="Sections">
+        <a href="#guide/short" data-sec="short">1. The short answer</a>
+        <a href="#guide/jobs" data-sec="jobs">2. The 8 jobs</a>
+        <a href="#guide/boom" data-sec="boom">3. Why everyone opens one</a>
+        <a href="#guide/cost" data-sec="cost">4. What it costs</a>
+        <a href="#guide/flags" data-sec="flags">5. Red flags</a>
+        <a href="#guide/diy" data-sec="diy">6. DIY or hire?</a>
+        <a href="#guide/words" data-sec="words">7. Jargon buster</a>
+        <a href="#guide/sources" data-sec="sources">8. Sources</a>
+      </nav>
+
+      <section class="gd-sec" id="gd-short">
+        <h2>The short answer</h2>
+        <p class="gd-short">An agency rents you a marketing team: <mark>a strategist, an ads specialist, an SEO person, a writer or designer, and an account manager</mark> who sends the monthly report.</p>
+        <p class="gd-lead">For most small businesses the monthly work comes down to four things: keep the Google profile and website in shape, run Google and/or Meta ads and cut wasted spend every week, make content (posts, ad videos, pages), and report the numbers. None of it is magic. Most of it is steady, repeatable work, which is why it fits into prompts.</p>
+      </section>
+
+      <section class="gd-sec" id="gd-jobs">
+        <h2>The 8 jobs</h2>
+        <p class="gd-lead">These are the services you'll see in any agency proposal. Your Marguru playbook follows the same order.</p>
+        <anvil-component type="RepeatingPanel" name="jobs_panel" prop:item_template="Marguru.Items.GuideJob" prop:role='["gd-jobs"]'></anvil-component>
+      </section>
+
+      <section class="gd-sec" id="gd-boom">
+        <h2>Why everyone is opening one</h2>
+        <div class="gd-two">
+          <div class="ui-card"><h3>It's cheap to start</h3><ul class="gd-list">
+            <li>No stock, no premises: a laptop and some software. Google and Meta ads are self-serve, so anyone can open an account.</li>
+            <li>Retainers mean recurring monthly income from each client.</li>
+            <li>"SMMA" (social media marketing agency) became a popular get-rich pitch, with courses and videos teaching it. Many articles about it are themselves selling a course, so treat income claims with caution.</li></ul></div>
+          <div class="ui-card"><h3>What that means for you</h3><ul class="gd-list">
+            <li><b>Selling is the main skill</b> in many new agencies. Insiders writing on Medium say the founder's real job is finding clients.</li>
+            <li><b>A lot of work is outsourced.</b> Many small agencies resell "white-label" SEO, ads or web work done by a partner under their own brand, with a markup. Fine if they're open about it; ask who does the work.</li>
+            <li><b>Local clients buy results, not "Facebook ads".</b> Calls and bookings are what matter, and they're harder to attribute than online sales.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="gd-sec" id="gd-cost">
+        <h2>What it costs</h2>
+        <p class="gd-lead">The best public data is for SEO. Ahrefs polled 439 SEO providers:</p>
+        <div class="gd-nums">
+          <div class="gd-num"><b>$501–1,000</b><span>the most common monthly retainer (20.4% of providers)</span></div>
+          <div class="gd-num"><b>$3,209</b><span>average monthly retainer for agencies</span></div>
+          <div class="gd-num"><b>$1,349</b><span>average monthly retainer for freelancers</span></div>
+          <div class="gd-num"><b>~$99/h</b><span>average agency hourly rate</span></div>
+        </div>
+        <p>Ads management is priced in several ways: a flat monthly fee, a share of ad spend, or both. <b>Ad spend comes on top:</b> it goes to Google or Meta. Google's third-party policy requires anyone managing your Google Ads to disclose their fees and give you the cost, click and impression data.</p>
+        <p class="muted small">Source: Ahrefs SEO pricing survey; Google Ads third-party policy. See <a href="#guide/sources" data-sec="sources">Sources</a>.</p>
+      </section>
+
+      <section class="gd-sec" id="gd-flags">
+        <h2>Red flags, in Google's own words</h2>
+        <div class="gd-quotes">
+          <blockquote class="gd-quote"><p>"No one can guarantee a #1 ranking on Google."</p><cite>Google Search Central</cite></blockquote>
+          <blockquote class="gd-quote"><p>"Be wary of SEO firms and web consultants or agencies that email you out of the blue."</p><cite>Google Search Central</cite></blockquote>
+          <blockquote class="gd-quote"><p>"Be careful if a company is secretive or won't clearly explain what they intend to do."</p><cite>Google Search Central</cite></blockquote>
+          <blockquote class="gd-quote"><p>"There's no way to request or pay for a better local ranking on Google."</p><cite>Google Business Profile Help</cite></blockquote>
+        </div>
+        <p>Also walk away from anyone offering fake or paid reviews (Google bans it, and the US FTC made fake reviews illegal in 2024), claiming a "special relationship" with Google, or asking you to link to them.</p>
+        <div class="ui-card">
+          <h3>Check an agency in one minute</h3>
+          <p class="muted">Answer for an agency you're talking to.</p>
+          <anvil-component type="RepeatingPanel" name="flags_panel" prop:item_template="Marguru.Items.FlagQ" prop:role='["gd-check"]'></anvil-component>
+          <div class="gd-score" anvil:name="score_box">
+            <anvil-component type="Label" name="score_title" prop:role='["gd-score-title"]'></anvil-component>
+            <anvil-component type="Label" name="score_text"></anvil-component>
+          </div>
+        </div>
+      </section>
+
+      <section class="gd-sec" id="gd-diy">
+        <h2>Do it yourself, or hire?</h2>
+        <div class="gd-two">
+          <div class="ui-card"><h3>Do it yourself first when</h3><ul class="gd-list">
+            <li>Your ad budget is small. A $800 monthly fee on $500 of ads means 62% of your marketing money pays the manager.</li>
+            <li>You're local and the work is mostly your Google profile, reviews and website. That's free, and nobody knows your business better.</li>
+            <li>You can spare 2 to 4 hours a week. A playbook and an AI chat do the writing; you supply the judgment.</li></ul></div>
+          <div class="ui-card"><h3>Consider hiring when</h3><ul class="gd-list">
+            <li>Ad spend is big enough that the fee is a small share (the same $800 on $5,000 of ads is 14%).</li>
+            <li>You need specialist skills you won't use often: tracking setup, video production, a complex store feed.</li>
+            <li>Your time is worth more running the business. A middle path: pay an expert for a one-off audit or setup, then run it yourself.</li></ul>
+            <a class="ui-btn sm" href="#math"><i class="ic ic-calc"></i>Do the fee math</a></div>
+        </div>
+      </section>
+
+      <section class="gd-sec" id="gd-words">
+        <h2>Jargon buster</h2>
+        <anvil-component type="TextBox" name="words_box" prop:placeholder="Search terms (CPC, ROAS, NAP...)" prop:role='["gd-words-in"]'></anvil-component>
+        <anvil-component type="RepeatingPanel" name="words_panel" prop:item_template="Marguru.Items.Word" prop:role='["gd-words"]'></anvil-component>
+        <p class="muted" anvil:name="no_words">No term matches that. Try a shorter word.</p>
+      </section>
+
+      <section class="gd-sec" id="gd-sources">
+        <h2>Sources, and how we checked</h2>
+        <div class="gd-note"><p><b>How we checked:</b> facts used inside Marguru's prompts and tips come from primary sources (Google, Meta, the FTC) or a named survey. Practitioner posts on Medium are listed for their tactics; their numbers are self-reported. We also looked for Reddit success stories, but Reddit blocks the research tools we used, so we couldn't read or verify any threads. Rather than invent quotes, Marguru has a <a href="#wins">Wins board</a> where owners share what worked.</p></div>
+        <anvil-component type="RepeatingPanel" name="sources_panel" prop:item_template="Marguru.Items.Source" prop:role='["gd-src"]'></anvil-component>
+      </section>
+    </div>
+  </anvil-block>
+</anvil-form>

@@ -1,0 +1,25 @@
+<div class="ui dlg-win">
+  <h2 class="dlg-h">Share a win</h2>
+  <p class="muted">One marketing move that worked. Be specific: what you did, and what changed. Your display name is shown; your email never is.</p>
+  <div class="ui-stack">
+    <label class="ui-field"><span>Title</span>
+      <anvil-component type="TextBox" name="title_box" prop:placeholder="Asking at the till took us from 14 to 61 reviews"></anvil-component>
+    </label>
+    <div class="ui-grid two">
+      <label class="ui-field"><span>Channel</span><anvil-component type="DropDown" name="channel_box"></anvil-component></label>
+      <label class="ui-field"><span>Your business</span><anvil-component type="DropDown" name="type_box"></anvil-component></label>
+    </div>
+    <label class="ui-field"><span>What did you do?</span>
+      <anvil-component type="TextArea" name="story_box" prop:placeholder="The steps, the tools, what you'd do differently."></anvil-component>
+    </label>
+    <label class="ui-field"><span>The result <em>(optional)</em></span>
+      <anvil-component type="TextBox" name="result_box" prop:placeholder="Cost per call went from $48 to $31"></anvil-component>
+    </label>
+    <p class="ui-hint">Please share honest numbers only, and nothing private about your customers.</p>
+    <anvil-component type="Label" name="message" prop:visible="false" prop:role='["msg-error"]'></anvil-component>
+    <div class="ui-row end">
+      <anvil-component type="Button" name="cancel_button" prop:text="Cancel" prop:role='["btn", "btn-ghost"]'></anvil-component>
+      <anvil-component type="Button" name="post_button" prop:text="Post it" prop:role='["btn", "btn-primary", "ic-trophy"]'></anvil-component>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<anvil-form layout="Marguru.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap">
+      <div class="ui-page-head">
+        <div>
+          <h1>What <em>actually worked</em></h1>
+          <p class="muted wn-lead">The wins board: small owners sharing one marketing move each. Steal freely. Posts marked Example are made up to show the format.</p>
+        </div>
+        <anvil-component type="Button" name="new_button" prop:text="Share a win" prop:role='["btn", "btn-primary", "ic-plus"]'></anvil-component>
+      </div>
+      <div class="ui-card wn-cta" anvil:name="guest_cta">
+        <p><b>Something worked for you?</b> Create a free account to share it and to clap for the wins that helped you.</p>
+        <a class="ui-btn primary sm" href="#auth/signup">Join free</a>
+      </div>
+      <div class="wn-filter" role="group" aria-label="Filter by channel">
+        <anvil-component type="RepeatingPanel" name="chips_panel" prop:item_template="Marguru.Items.ChannelChip" prop:role='["contents"]'></anvil-component>
+      </div>
+      <anvil-component type="RepeatingPanel" name="wins_panel" prop:item_template="Marguru.Items.WinCard" prop:role='["wn-list"]'></anvil-component>
+      <div class="ui-empty" anvil:name="empty">
+        <i class="ic ic-trophy"></i>
+        <h2>No wins here yet</h2>
+        <anvil-component type="Label" name="empty_text"></anvil-component>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

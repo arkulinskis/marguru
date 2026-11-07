@@ -1,0 +1,33 @@
+<anvil-form layout="Marguru.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap">
+      <div class="ui-page-head">
+        <div>
+          <h1>Is an ad budget <em>worth it?</em></h1>
+          <p class="muted am-lead">The sum every agency should do before spending your money: what a budget buys, what a customer is worth, and the most you can pay per click. Change any number.</p>
+        </div>
+      </div>
+      <div class="am">
+        <div class="ui-card am-in">
+          <anvil-component type="RepeatingPanel" name="fields_panel" prop:item_template="Marguru.Items.MathField" prop:role='["am-fields"]'></anvil-component>
+          <div class="ui-row am-reset">
+            <anvil-component type="Button" name="reset_button" prop:text="Reset to averages" prop:role='["btn", "btn-sm", "ic-refresh"]'></anvil-component>
+          </div>
+        </div>
+        <div>
+          <div class="ui-card">
+            <h2 class="am-h">Each month, roughly</h2>
+            <anvil-component type="RepeatingPanel" name="funnel_panel" prop:item_template="Marguru.Items.FunnelStep" prop:role='["am-funnel"]'></anvil-component>
+            <anvil-component type="RepeatingPanel" name="kpi_panel" prop:item_template="Marguru.Items.Kpi" prop:role='["am-kpis"]'></anvil-component>
+            <div class="am-verdict" anvil:name="verdict">
+              <anvil-component type="Label" name="verdict_title" prop:role='["am-verdict-title"]'></anvil-component>
+              <anvil-component type="Label" name="verdict_text"></anvil-component>
+              <anvil-component type="RepeatingPanel" name="tips_panel" prop:item_template="Marguru.Items.Text" prop:role='["am-tips"]'></anvil-component>
+            </div>
+            <p class="am-src">Default click cost ($5.26) and lead rate (7.52%, rounded to 7.5) are the all-industry US averages for Google search ads in LocaliQ/WordStream's 2025 benchmarks. Your industry and city can be far cheaper or dearer: check real estimates in Google Keyword Planner. Results are estimates, never promises.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

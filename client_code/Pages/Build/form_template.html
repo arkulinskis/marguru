@@ -1,0 +1,111 @@
+<anvil-form layout="Marguru.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap">
+      <div class="ui-page-head">
+        <div>
+          <h1>Tell Marguru about <em>your business</em></h1>
+          <anvil-component type="Label" name="lead" prop:role='["page-lead"]' prop:text="New plan, about 3 minutes. The more specific you are, the better every prompt gets. Anything you skip becomes a [bracket] to fill in later."></anvil-component>
+        </div>
+        <div class="bd-tools">
+          <anvil-component type="Button" name="example_button" prop:text="Fill with an example" prop:role='["btn", "btn-sm", "ic-sparkle"]'></anvil-component>
+        </div>
+      </div>
+      <div class="bd">
+        <div>
+          <section class="ui-card bd-sec">
+            <span class="num">Part 1</span>
+            <h2>The basics</h2>
+            <p class="muted">What you are and what you sell.</p>
+            <div class="ui-stack">
+              <div class="bd-row">
+                <label class="ui-field"><span>Business name</span><anvil-component type="TextBox" name="name_box" prop:placeholder="Crumb &amp; Co."></anvil-component></label>
+                <label class="ui-field"><span>Website <em>(optional)</em></span><anvil-component type="TextBox" name="site_box" prop:placeholder="crumbandco.ca"></anvil-component></label>
+              </div>
+              <label class="ui-field"><span>What do you sell?</span><anvil-component type="TextBox" name="what_box" prop:placeholder="Sourdough bread, pastries and custom cakes"></anvil-component><span class="ui-hint">In your customers' words, not your industry's.</span></label>
+              <div class="ui-field" role="radiogroup" aria-label="What kind of business?"><span>What kind of business?</span>
+                <anvil-component type="RepeatingPanel" name="type_panel" prop:item_template="Marguru.Items.Choice" prop:role='["choices", "choices-types"]'></anvil-component>
+              </div>
+            </div>
+          </section>
+
+          <section class="ui-card bd-sec">
+            <span class="num">Part 2</span>
+            <h2>Your customers</h2>
+            <p class="muted">Who buys, where, and how much.</p>
+            <div class="ui-stack">
+              <div class="ui-field" role="radiogroup" aria-label="Where are your customers?"><span>Where are your customers?</span>
+                <anvil-component type="RepeatingPanel" name="reach_panel" prop:item_template="Marguru.Items.Choice" prop:role='["choices"]'></anvil-component>
+              </div>
+              <label class="ui-field"><span>Where exactly?</span><anvil-component type="TextBox" name="where_box" prop:placeholder="Verdun, Montréal (or: Canada and the US)"></anvil-component></label>
+              <label class="ui-field"><span>Who is your best customer?</span><anvil-component type="TextArea" name="customer_box" prop:placeholder="Young families within a 10-minute walk; parents ordering birthday cakes a week ahead"></anvil-component></label>
+              <div class="bd-row">
+                <label class="ui-field"><span>Average sale, in dollars</span><anvil-component type="TextBox" name="price_box" prop:type="number" prop:placeholder="18"></anvil-component></label>
+                <div class="ui-field" role="radiogroup" aria-label="How often do they buy again?"><span>How often do they buy again?</span>
+                  <anvil-component type="RepeatingPanel" name="repeat_panel" prop:item_template="Marguru.Items.Choice" prop:role='["choices"]'></anvil-component>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="ui-card bd-sec">
+            <span class="num">Part 3</span>
+            <h2>Your goal</h2>
+            <p class="muted">What you want from marketing in the next 90 days, and what you can spend on ads.</p>
+            <div class="ui-stack">
+              <div class="ui-field" role="radiogroup" aria-label="Main goal"><span>Main goal</span>
+                <anvil-component type="RepeatingPanel" name="goal_panel" prop:item_template="Marguru.Items.Choice" prop:role='["choices"]'></anvil-component>
+              </div>
+              <div class="ui-field" role="radiogroup" aria-label="Monthly ad budget"><span>Monthly ad budget</span>
+                <anvil-component type="RepeatingPanel" name="budget_panel" prop:item_template="Marguru.Items.Choice" prop:role='["choices"]'></anvil-component>
+                <p class="ui-hint">$0 is fine: there's a lot to do for free first. Paid-ads prompts appear when you add a budget.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="ui-card bd-sec">
+            <span class="num">Part 4</span>
+            <h2>What you have</h2>
+            <p class="muted">So Marguru doesn't tell you to build what you already have.</p>
+            <div class="ui-stack">
+              <div class="ui-field"><span>You already have</span>
+                <div class="bd-checks">
+                  <anvil-component type="CheckBox" name="has_site" prop:text="A website" prop:role='["bd-check"]'></anvil-component>
+                  <anvil-component type="CheckBox" name="has_gbp" prop:text="A Google Business Profile" prop:role='["bd-check"]'></anvil-component>
+                  <anvil-component type="CheckBox" name="has_social" prop:text="Instagram / Facebook / TikTok" prop:role='["bd-check"]'></anvil-component>
+                  <anvil-component type="CheckBox" name="has_email" prop:text="An email list" prop:role='["bd-check"]'></anvil-component>
+                  <anvil-component type="CheckBox" name="has_reviews" prop:text="10+ Google reviews" prop:role='["bd-check"]'></anvil-component>
+                  <anvil-component type="CheckBox" name="has_photos" prop:text="Good photos or videos" prop:role='["bd-check"]'></anvil-component>
+                </div>
+              </div>
+              <label class="ui-field"><span>Why do people choose you over others?</span><anvil-component type="TextArea" name="edge_box" prop:placeholder="Bread baked at 5 a.m. daily; custom cakes on 72 hours' notice"></anvil-component></label>
+              <label class="ui-field"><span>Main competitors <em>(optional)</em></span><anvil-component type="TextBox" name="competitors_box" prop:placeholder="A chain café two blocks away; supermarket bakeries"></anvil-component></label>
+              <label class="ui-field"><span>What have you tried already? <em>(optional)</em></span><anvil-component type="TextArea" name="tried_box" prop:placeholder="Instagram now and then; flyers once"></anvil-component></label>
+              <div class="ui-field" role="radiogroup" aria-label="How should your brand sound?"><span>How should your brand sound?</span>
+                <anvil-component type="RepeatingPanel" name="voice_panel" prop:item_template="Marguru.Items.Choice" prop:role='["choices"]'></anvil-component>
+              </div>
+            </div>
+          </section>
+
+          <div class="bd-mob">
+            <div><anvil-component type="Label" name="count_mob" prop:role='["bd-mob-n"]'></anvil-component> <span class="small muted">prompts</span></div>
+            <anvil-component type="Button" name="save_mob" prop:text="Build my playbook" prop:role='["btn", "btn-primary"]'></anvil-component>
+          </div>
+        </div>
+
+        <aside class="bd-side">
+          <div class="ui-card bd-count">
+            <h2 class="bd-count-h">Your playbook</h2>
+            <anvil-component type="Label" name="count_big" prop:role='["bd-big"]'></anvil-component>
+            <anvil-component type="Label" name="stages_line" prop:role='["bd-stages"]'></anvil-component>
+            <anvil-component type="RepeatingPanel" name="stage_panel" prop:item_template="Marguru.Items.Text" prop:role='["bd-stg"]'></anvil-component>
+            <anvil-component type="Button" name="save_button" prop:text="Build my playbook" prop:role='["btn", "btn-primary", "btn-block", "btn-lg"]'></anvil-component>
+            <p class="ui-hint bd-guest" anvil:name="guest_hint">No account needed. Your plan stays in this browser until you sign up.</p>
+          </div>
+          <div class="ui-card flat bd-tip">
+            <anvil-component type="Label" name="tip" prop:role='["fine-print"]'></anvil-component>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

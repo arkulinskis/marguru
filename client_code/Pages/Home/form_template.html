@@ -1,0 +1,45 @@
+<anvil-form layout="Marguru.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap">
+      <div class="dk-head">
+        <div>
+          <anvil-component type="Label" name="hello" prop:role='["page-title"]'></anvil-component>
+          <p class="muted dk-sub">Your desk: your plans, a Guru tip and the latest wins.</p>
+        </div>
+        <a class="ui-btn primary" href="#build" anvil:name="new_link"><i class="ic ic-plus"></i>New plan</a>
+      </div>
+      <div class="dk-grid">
+        <div>
+          <div class="dk-plans" anvil:name="plans_part">
+            <anvil-component type="RepeatingPanel" name="plans_panel" prop:item_template="Marguru.Items.PlanCard" prop:role='["contents"]'></anvil-component>
+            <a class="dk-new" href="#build"><div><i class="ic ic-plus"></i><h3>New plan</h3><p class="small muted">Another business, location or product line</p></div></a>
+          </div>
+          <div class="ui-card dk-hero" anvil:name="empty_part">
+            <h2>Tell Marguru about <em>your business</em></h2>
+            <p class="muted dk-hero-p">Three minutes of questions, then a step-by-step playbook of copy-ready prompts: the same jobs a marketing agency would do for you.</p>
+            <div class="ui-row dk-hero-cta">
+              <a class="ui-btn primary lg" href="#build">Build my playbook <i class="ic ic-arrow"></i></a>
+              <a class="ui-btn lg" href="#plan/example">See an example</a>
+            </div>
+          </div>
+        </div>
+        <aside class="dk-side">
+          <div class="ui-card dk-tip">
+            <h2 class="dk-tip-h">Guru tip</h2>
+            <anvil-component type="Label" name="tip_text" prop:role='["dk-tip-text"]'></anvil-component>
+            <anvil-component type="Label" name="tip_source" prop:role='["dk-tip-src"]'></anvil-component>
+          </div>
+          <div class="ui-card">
+            <div class="ui-row between"><h3 class="dk-wins-h">Latest wins</h3><a class="small" href="#wins">All wins</a></div>
+            <anvil-component type="RepeatingPanel" name="wins_panel" prop:item_template="Marguru.Items.WinLine"></anvil-component>
+            <p class="muted small" anvil:name="no_wins">No wins yet. Be the first to share one.</p>
+          </div>
+          <div class="ui-card dk-links">
+            <a class="ui-btn block" href="#guide"><i class="ic ic-book"></i>What agencies actually do</a>
+            <a class="ui-btn block" href="#math"><i class="ic ic-calc"></i>Is an ad budget worth it?</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

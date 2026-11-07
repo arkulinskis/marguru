@@ -1,0 +1,28 @@
+<div class="pc-host">
+  <article class="pc" anvil:dom-node="card">
+    <span class="pc-stamp" anvil:dom-node="stamp">DONE</span>
+    <div class="pc-top">
+      <span class="pc-n" anvil:dom-node="num"></span>
+      <div>
+        <h3 anvil:dom-node="title"></h3>
+        <div class="pc-meta"><i class="ic ic-clock"></i><span anvil:dom-node="time"></span><span aria-hidden="true">·</span><span class="lv" anvil:dom-node="lv"><span anvil:dom-node="lv_on"></span><span class="lv-off" anvil:dom-node="lv_off"></span></span></div>
+      </div>
+      <button type="button" class="pc-star" anvil:dom-node="star" anvil:on-dom:click="self.star_click" aria-label="Star this prompt"><i class="ic ic-star"></i></button>
+    </div>
+    <p class="pc-why"><b>Why agencies do this:</b> <span anvil:dom-node="why"></span></p>
+    <div class="pc-prompt closed" anvil:dom-node="box"><pre><span anvil:dom-node="pre_a"></span><span class="pc-brief" anvil:dom-node="chip"><i class="ic ic-note"></i><span anvil:dom-node="chip_t"></span></span><span anvil:dom-node="pre_b"></span></pre></div>
+    <button type="button" class="pc-more" anvil:dom-node="more" anvil:on-dom:click="self.more_click">Show the full prompt</button>
+    <div class="pc-get"><p><b>You get:</b> <span anvil:dom-node="get"></span></p><p><b>Then:</b> <span anvil:dom-node="next"></span></p></div>
+    <div class="pc-actions">
+      <anvil-component type="Button" name="copy_button" prop:text="Copy prompt" prop:role='["btn", "btn-primary", "ic-copy"]'></anvil-component>
+      <a class="ui-btn sm" anvil:dom-node="gpt" target="_blank" rel="noopener" anvil:on-dom:click="self.gpt_click">ChatGPT <i class="ic ic-external"></i></a>
+      <a class="ui-btn sm" anvil:dom-node="claude" target="_blank" rel="noopener" anvil:on-dom:click="self.claude_click">Claude <i class="ic ic-external"></i></a>
+      <span class="ui-spacer"></span>
+      <button type="button" class="ui-btn ghost sm" anvil:dom-node="note_btn" anvil:on-dom:click="self.note_click"><i class="ic ic-note"></i><span anvil:dom-node="note_t">Note</span></button>
+      <label class="pc-done"><input type="checkbox" anvil:dom-node="done" anvil:on-dom:change="self.done_change">Done</label>
+    </div>
+    <div class="pc-note" anvil:dom-node="note_box">
+      <anvil-component type="TextArea" name="note_area" prop:placeholder="What did the AI give you? What did you change? (only you see this)"></anvil-component>
+    </div>
+  </article>
+</div>

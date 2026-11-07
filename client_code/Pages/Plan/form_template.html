@@ -1,0 +1,84 @@
+<anvil-form layout="Marguru.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap">
+      <div anvil:name="missing" class="ui-empty pl-missing">
+        <i class="ic ic-note"></i>
+        <h2>We couldn't open that plan</h2>
+        <p>It may have been deleted, or it belongs to another account.</p>
+        <a class="ui-btn primary" href="#home">Go to your desk</a>
+      </div>
+
+      <div anvil:name="book_part">
+        <div class="pl-head">
+          <div>
+            <anvil-component type="Label" name="name_title" prop:role='["pl-title"]'></anvil-component>
+            <anvil-component type="Label" name="subtitle" prop:role='["pl-sub"]'></anvil-component>
+            <div class="pl-meta">
+              <anvil-component type="Label" name="type_badge" prop:role='["badge"]'></anvil-component>
+              <span class="ui-badge" anvil:name="where_badge"><i class="ic ic-pin"></i><span anvil:dom-node="where_t"></span></span>
+              <anvil-component type="Label" name="goal_badge" prop:role='["badge"]'></anvil-component>
+              <anvil-component type="Label" name="budget_badge" prop:role='["badge"]'></anvil-component>
+            </div>
+          </div>
+          <div class="pl-actions">
+            <a class="ui-btn primary" href="#build" anvil:name="mine_link"><i class="ic ic-plus"></i>Build mine</a>
+            <a class="ui-btn" href="#build" anvil:name="edit_link"><i class="ic ic-edit"></i>Edit details</a>
+            <anvil-component type="Button" name="download_button" prop:text="Download" prop:role='["btn", "ic-download"]'></anvil-component>
+            <anvil-component type="Button" name="delete_button" prop:text="Delete this plan" prop:role='["btn", "btn-ghost", "btn-icon", "ic-trash"]'></anvil-component>
+          </div>
+          <div class="pl-prog">
+            <span class="txt"><anvil-component type="Label" name="done_n" prop:role='["pl-done-n"]'></anvil-component><anvil-component type="Label" name="total_line" prop:role='["t"]'></anvil-component></span>
+            <div class="pl-bar" anvil:dom-node="bar_box"><i anvil:dom-node="bar"></i></div>
+          </div>
+        </div>
+
+        <div class="pl-banner" anvil:name="local_banner">
+          <p><b>This plan lives in this browser only.</b> Create a free account to keep it, track progress on any device and share wins.</p>
+          <a class="ui-btn sm" href="#auth/signup">Save it to an account</a>
+        </div>
+        <div class="pl-banner" anvil:name="example_banner">
+          <p><b>This is an example</b> for a made-up bakery. Every prompt changes with your answers.</p>
+          <a class="ui-btn sm" href="#build">Build your own</a>
+        </div>
+
+        <section class="pl-next" anvil:name="next_part">
+          <h2>Start here</h2>
+          <anvil-component type="RepeatingPanel" name="next_panel" prop:item_template="Marguru.Items.NextItem" prop:role='["pl-next-list"]'></anvil-component>
+        </section>
+        <section class="pl-next" anvil:name="all_done">
+          <div class="ui-card pl-all-done">
+            <h2>Every prompt done. <em>Agency-level work.</em></h2>
+            <p class="muted">Share what worked on the Wins board, or start again in 90 days with new numbers.</p>
+            <a class="ui-btn primary" href="#wins"><i class="ic ic-trophy"></i>Share a win</a>
+          </div>
+        </section>
+
+        <div class="pl-body" anvil:dom-node="body">
+          <nav class="pl-tabs" aria-label="Stages">
+            <anvil-component type="RepeatingPanel" name="tabs_panel" prop:item_template="Marguru.Items.StageTab" prop:role='["contents"]'></anvil-component>
+          </nav>
+          <div class="pl-sheet">
+            <div class="pl-stage-head">
+              <anvil-component type="Label" name="stage_big" prop:role='["pl-big"]'></anvil-component>
+              <div>
+                <anvil-component type="Label" name="stage_title" prop:role='["pl-stage-title"]'></anvil-component>
+                <anvil-component type="Label" name="stage_meta" prop:role='["fine-print"]'></anvil-component>
+              </div>
+            </div>
+            <div class="pl-agency">
+              <div class="k"><i class="ic" anvil:dom-node="stage_icon"></i><span anvil:dom-node="agency_k"></span></div>
+              <p anvil:dom-node="agency"></p>
+            </div>
+            <anvil-component type="RepeatingPanel" name="cards_panel" prop:item_template="Marguru.Items.PromptCard" prop:role='["pl-cards"]'></anvil-component>
+            <div class="pl-pager">
+              <anvil-component type="Button" name="prev_button" prop:role='["btn", "ic-back"]'></anvil-component>
+              <span class="ui-spacer"></span>
+              <anvil-component type="Button" name="next_button" prop:role='["btn", "btn-primary", "ic-arrow"]'></anvil-component>
+            </div>
+            <anvil-component type="RepeatingPanel" name="hidden_panel" prop:item_template="Marguru.Items.Text" prop:role='["pl-hidden"]'></anvil-component>
+          </div>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

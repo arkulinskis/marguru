@@ -6,6 +6,7 @@ so the server only stores and checks the profile and the progress:
 Only the owner (or an admin) can read or change a plan.
 """
 import re
+from typing import Any
 
 import anvil.server
 from anvil.tables import app_tables
@@ -57,9 +58,9 @@ def clean_profile(p):
 
 def clean_progress(pr):
     pr = pr if isinstance(pr, dict) else {}
-    done = pr.get("done") if isinstance(pr.get("done"), dict) else {}
-    star = pr.get("star") if isinstance(pr.get("star"), list) else []
-    notes = pr.get("notes") if isinstance(pr.get("notes"), dict) else {}
+    done: Any = pr.get("done") if isinstance(pr.get("done"), dict) else {}
+    star: Any = pr.get("star") if isinstance(pr.get("star"), list) else []
+    notes: Any = pr.get("notes") if isinstance(pr.get("notes"), dict) else {}
     return {"done": {k: C.text(v, 40) or C.iso(C.now()) for k, v in list(done.items())[:80] if PROMPT_ID.match(str(k))},
             "star": [s for s in star[:80] if isinstance(s, str) and PROMPT_ID.match(s)],
             "notes": {k: C.text(v, 2000, multiline=True) for k, v in list(notes.items())[:80] if PROMPT_ID.match(str(k)) and C.text(v, 10)}}
