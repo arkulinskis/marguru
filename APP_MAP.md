@@ -7,7 +7,7 @@ around them with an offset instead of whole files.
 
 **What it is:** Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and reporting, in the order an ad agency would do the work.
 **Live:** https://marguru.anvil.app · **Repo:** github.com/arkulinskis/marguru · **Layout:** native Anvil Forms · **Deploy:** master
-**Guide** (workflow, design rules, product knowledge): `marguru/.claude/skills/marguru/SKILL.md`
+**Guide** (workflow, design rules, product knowledge): `.claude/skills/marguru/SKILL.md`
 
 ## How to change it
 
