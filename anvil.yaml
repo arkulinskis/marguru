@@ -279,10 +279,9 @@ db_schema:
     server: full
     title: Wins
 metadata:
-  description: Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and reporting, in the
-    order an ad agency would do the work.
-  logo_img: asset:icon-512.png
-  title: 'Marguru: market your business like an ad agency would'
+  description: "Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and reporting, in the order an ad agency would do the work."
+  logo_img: "asset:icon-512.png"
+  title: "Marguru: market your business like an ad agency would"
 name: Marguru
 native_deps:
   head_html: |
@@ -306,7 +305,7 @@ native_deps:
     <meta name="twitter:description" content="Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and reporting, in the order an ad agency would do the work.">
     <meta name="twitter:image" content="https://marguru.anvil.app/_/theme/og-image.png">
     <link rel="alternate" type="text/plain" title="Marguru for AI assistants" href="https://marguru.anvil.app/llms.txt">
-    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "@id": "https://marguru.anvil.app/#app", "name": "Marguru", "url": "https://marguru.anvil.app/", "description": "Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and reporting, in the order an ad agency would do the work.", "image": "https://marguru.anvil.app/_/theme/og-image.png", "inLanguage": "en", "publisher": {"@id": "https://arkvital.com/#org"}, "keywords": "small business marketing, AI marketing prompts, ChatGPT prompts for marketing, marketing plan template, Google Business Profile tips, local SEO for small business, Google Ads for beginners, what does an ad agency do, DIY marketing", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript and a modern web browser", "featureList": ["A playbook of 25 to 35 prompts filled in with your business details", "Eight stages in the order an agency works", "Copy a prompt or open it in ChatGPT or Claude", "A field guide to what agencies do, charge and how to spot a bad one", "An ad maths calculator and a wins board", "Download the playbook as Markdown"], "audience": {"@type": "Audience", "audienceType": "Small business owners who do their own marketing"}}, {"@type": "WebSite", "@id": "https://marguru.anvil.app/#site", "url": "https://marguru.anvil.app/", "name": "Marguru", "publisher": {"@id": "https://arkvital.com/#org"}}, {"@type": "Organization", "@id": "https://arkvital.com/#org", "name": "Arkvital", "url": "https://arkvital.com", "email": "arkvital@outlook.com", "address": {"@type": "PostalAddress", "addressLocality": "Montreal", "addressRegion": "QC", "addressCountry": "CA"}}]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Service", "@id": "https://marguru.anvil.app/#app", "name": "Marguru", "url": "https://marguru.anvil.app/", "description": "Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and reporting, in the order an ad agency would do the work.", "image": "https://marguru.anvil.app/_/theme/og-image.png", "serviceType": "A pocket marketing agency: copy-ready AI prompts in agency order", "provider": {"@id": "https://arkvital.com/#org"}, "areaServed": "Worldwide", "availableChannel": {"@type": "ServiceChannel", "serviceUrl": "https://marguru.anvil.app/", "name": "Web browser"}, "availableLanguage": "en", "audience": {"@type": "Audience", "audienceType": "Small business owners who do their own marketing"}}, {"@type": "WebSite", "@id": "https://marguru.anvil.app/#site", "url": "https://marguru.anvil.app/", "name": "Marguru", "publisher": {"@id": "https://arkvital.com/#org"}}, {"@type": "Organization", "@id": "https://arkvital.com/#org", "name": "Arkvital", "url": "https://arkvital.com", "email": "arkvital@outlook.com", "address": {"@type": "PostalAddress", "addressLocality": "Montreal", "addressRegion": "QC", "addressCountry": "CA"}}]}</script>
     <!-- seo:end -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f6f1e7">
