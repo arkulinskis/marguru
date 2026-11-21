@@ -23,6 +23,9 @@ REPEAT = {"once", "sometimes", "often"}
 VOICES = {"warm", "premium", "bold", "expert"}
 HAS = ("site", "gbp", "social", "email", "reviews", "photos")
 TEXT_FIELDS = {"name": 80, "what": 200, "where": 120, "customer": 300, "edge": 300, "competitors": 200, "tried": 400, "site_url": 200}
+# Sound like you (2026-11-20): optional voice notes, added to the brief only when filled
+VOICE_FIELDS = {"voice_like": 200, "voice_never": 200, "voice_sample": 600}
+HOURS = {"1", "2", "4"}  # Your week: time for marketing each week
 MAX_PLANS = 20
 PROMPT_ID = re.compile(r"^[a-z0-9_-]{1,40}$")
 
@@ -32,6 +35,10 @@ def clean_profile(p):
     if not isinstance(p, dict):
         raise ValueError("Tell us about your business first.")
     out = {k: C.text(p.get(k), n) for k, n in TEXT_FIELDS.items()}
+    for k, n in VOICE_FIELDS.items():
+        val = C.text(p.get(k), n, multiline=(k == "voice_sample"))
+        if val:
+            out[k] = val
     if len(out["name"]) < 2:
         raise ValueError("What's your business called? (at least 2 characters)")
     if len(out["what"]) < 3:
@@ -46,6 +53,7 @@ def clean_profile(p):
     out["budget"] = pick("budget", BUDGETS, "0")
     out["repeat"] = pick("repeat", REPEAT, "sometimes")
     out["voice"] = pick("voice", VOICES, "warm")
+    out["hours"] = pick("hours", HOURS, "2")
     try:
         price = float(p.get("price") or 0)
     except (TypeError, ValueError):
@@ -129,6 +137,8 @@ def delete_plan(plan_id):
     _, r = _own(plan_id)
     if r is None:
         return C.fail("That plan doesn't exist, or it isn't yours.")
+    from . import Scores
+    Scores.delete_for_plan(r)
     r.delete()
     return C.ok()
 

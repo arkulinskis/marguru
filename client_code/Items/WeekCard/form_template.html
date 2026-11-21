@@ -1,0 +1,10 @@
+<div class="wk-host"><section class="wk" anvil:dom-node="card">
+  <div class="wk-top">
+    <h3 anvil:dom-node="title"></h3>
+    <span class="wk-now" anvil:dom-node="now">This week</span>
+    <span class="wk-range" anvil:dom-node="range"></span>
+  </div>
+  <div class="wk-load"><div class="wk-bar" aria-hidden="true"><i anvil:dom-node="bar"></i></div><span anvil:dom-node="load"></span></div>
+  <anvil-component type="RepeatingPanel" name="tasks_panel" prop:item_template="Marguru.Items.WeekTask" prop:role='["wk-tasks"]'></anvil-component>
+  <p class="wk-empty" anvil:dom-node="empty"></p>
+</section></div>

@@ -1,6 +1,9 @@
-<div class="pcd-host"><a class="ui-card dk-plan" anvil:dom-node="link">
-  <div class="dk-plan-top"><div class="dk-plan-name"><h3 anvil:dom-node="name"></h3><span class="small muted" anvil:dom-node="meta"></span></div>
+<div class="pcd-host"><div class="ui-card dk-card">
+  <div class="dk-plan-top"><div class="dk-plan-name"><h3><a class="dk-plan" anvil:dom-node="link"><span anvil:dom-node="name"></span></a></h3><span class="small muted" anvil:dom-node="meta"></span></div>
     <div class="dk-ring" anvil:dom-node="ring"><span anvil:dom-node="pct"></span></div></div>
   <div class="small muted" anvil:dom-node="count"></div>
-  <div class="dk-next"><span class="dk-next-k" anvil:dom-node="next_k">Next up</span><b anvil:dom-node="next"></b></div>
-</a></div>
+  <div class="dk-next"><span class="dk-next-k" anvil:dom-node="next_k">This week</span>
+    <anvil-component type="RepeatingPanel" name="week_panel" prop:item_template="Marguru.Items.Text" prop:role='["dk-week"]'></anvil-component>
+    <b anvil:dom-node="next"></b></div>
+  <div class="dk-card-foot"><a class="ui-btn sm" anvil:dom-node="week_link"><i class="ic ic-calendar"></i>Your week</a><a class="ui-btn sm" anvil:dom-node="num_link"><i class="ic ic-chart"></i>Numbers</a></div>
+</div></div>

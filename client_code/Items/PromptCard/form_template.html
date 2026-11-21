@@ -21,6 +21,16 @@
       <button type="button" class="ui-btn ghost sm" anvil:dom-node="note_btn" anvil:on-dom:click="self.note_click"><i class="ic ic-note"></i><span anvil:dom-node="note_t">Note</span></button>
       <label class="pc-done"><input type="checkbox" anvil:dom-node="done" anvil:on-dom:change="self.done_change">Done</label>
     </div>
+    <details class="pc-fix" anvil:dom-node="fix">
+      <summary><i class="ic ic-wand"></i>Answer not right?</summary>
+      <p class="pc-fix-p">Copy a follow-up and paste it into the same chat, right after the answer.</p>
+      <div class="pc-chips">
+        <button type="button" class="pc-chip" anvil:dom-node="fu0" anvil:on-dom:click="self.fu0_click"></button>
+        <button type="button" class="pc-chip" anvil:dom-node="fu1" anvil:on-dom:click="self.fu1_click"></button>
+        <button type="button" class="pc-chip" anvil:dom-node="fu2" anvil:on-dom:click="self.fu2_click"></button>
+        <button type="button" class="pc-chip" anvil:dom-node="fu3" anvil:on-dom:click="self.fu3_click"></button>
+      </div>
+    </details>
     <div class="pc-note" anvil:dom-node="note_box">
       <anvil-component type="TextArea" name="note_area" prop:placeholder="What did the AI give you? What did you change? (only you see this)"></anvil-component>
     </div>

@@ -19,6 +19,7 @@ PAGES = {
     "auth": ("guest", "Sign in"),
     "build": (None, "Describe your business"),
     "plan": (None, "Your playbook"),
+    "numbers": (None, "Did it work? Monthly numbers"),
     "home": ("user", "Your desk"),
     "guide": (None, "What agencies actually do"),
     "math": (None, "Ad math"),
@@ -42,7 +43,7 @@ def tab_links(page):
     """The phone tab bar: visitors get "Try it" (#build, also lit on #plan) before the public pages."""
     links = nav_links(page)
     if not state.me():
-        links = [{"page": "build", "label": "Try it", "icon": "sparkle", "on": page in ("build", "plan")}] + links
+        links = [{"page": "build", "label": "Try it", "icon": "sparkle", "on": page in ("build", "plan", "numbers")}] + links
     return links[:4]
 
 
@@ -60,6 +61,9 @@ def _form(name):
     if name == "plan":
         from .Pages.Plan import Plan
         return Plan
+    if name == "numbers":
+        from .Pages.Scores import Scores
+        return Scores
     if name == "home":
         from .Pages.Home import Home
         return Home
@@ -102,12 +106,12 @@ def show():
     if name not in PAGES:
         name, args = home_page(), []
     who = PAGES[name][0]
-    if name == "plan":
+    if name in ("plan", "numbers"):
         arg = args[0] if args else "local"
         if arg == "local" and not (mg.store_get("guestPlan") or {}).get("profile"):
             name, args = "build", []  # no plan in this browser yet: describe the business first
         elif arg not in ("local", "example") and not state.me():
-            who = "user"  # a saved plan needs its owner signed in
+            who = "user"  # a saved plan (and its numbers) needs its owner signed in
     if who == "guest" and state.me():
         name, args = "home", []
     elif who in ("user", "admin") and not state.me():

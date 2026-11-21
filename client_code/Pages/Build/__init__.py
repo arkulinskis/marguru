@@ -5,7 +5,7 @@ from ... import mg, router, state
 
 # choice groups: profile key -> (mg.DATA list, show the small sub-line)
 GROUPS = {"type": ("TYPES", True), "reach": ("REACH", True), "repeat": ("REPEAT", False), "goal": ("GOALS", False),
-          "budget": ("BUDGETS", False), "voice": ("VOICES", False)}
+          "budget": ("BUDGETS", False), "voice": ("VOICES", False), "hours": ("HOURS", False)}
 HAS = ["site", "gbp", "social", "email", "reviews", "photos"]
 
 
@@ -34,16 +34,19 @@ class Build(BuildTemplate):
         self.plan_id = arg if arg and arg != "local" else None
         self.boxes = {"name": (self.name_box, 80), "site_url": (self.site_box, 200), "what": (self.what_box, 200),
                       "where": (self.where_box, 120), "customer": (self.customer_box, 300), "price": (self.price_box, 9),
-                      "edge": (self.edge_box, 300), "competitors": (self.competitors_box, 200), "tried": (self.tried_box, 400)}
+                      "edge": (self.edge_box, 300), "competitors": (self.competitors_box, 200), "tried": (self.tried_box, 400),
+                      "voice_like": (self.like_box, 200), "voice_never": (self.never_box, 200), "voice_sample": (self.sample_box, 600)}
         self.panels = {"type": self.type_panel, "reach": self.reach_panel, "repeat": self.repeat_panel,
-                       "goal": self.goal_panel, "budget": self.budget_panel, "voice": self.voice_panel}
+                       "goal": self.goal_panel, "budget": self.budget_panel, "voice": self.voice_panel, "hours": self.hours_panel}
         self.checks = {"site": self.has_site, "gbp": self.has_gbp, "social": self.has_social, "email": self.has_email,
                        "reviews": self.has_reviews, "photos": self.has_photos}
         for key, (box, n) in self.boxes.items():
             state.set_control_attr(box, "maxlength", n)
             box.add_event_handler("change", self._changed)
-        for box in (self.customer_box, self.edge_box, self.tried_box):
+        for box in (self.customer_box, self.edge_box, self.tried_box, self.sample_box):
             box.height = "84"
+        self.sample_box.add_event_handler("change", self._sample_count)
+        state.live(self.sample_count)
         state.set_control_attr(self.price_box, "min", 0)
         state.set_control_attr(self.price_box, "step", 1)
         state.set_control_attr(self.price_box, "inputmode", "numeric")
@@ -90,6 +93,7 @@ class Build(BuildTemplate):
         has = p.get("has") or {}
         for key, box in self.checks.items():
             box.checked = bool(has.get(key))
+        self._sample_count()
         self.update()
 
     def read(self):
@@ -114,6 +118,10 @@ class Build(BuildTemplate):
 
     def _changed(self, **event_args):
         self.update()
+
+    def _sample_count(self, **event_args):
+        n = len(self.sample_box.text or "")
+        self.sample_count.text = ("%d of 600 characters" % n) if n else ""
 
     def _pick(self, group, value, **event_args):
         self.vals[group] = value
@@ -153,5 +161,5 @@ class Build(BuildTemplate):
         else:
             old = mg.store_get("guestPlan") or {}
             mg.store_set("guestPlan", {"profile": p, "progress": old.get("progress") or {"done": {}, "star": [], "notes": {}},
-                                       "updated": mg.now_iso()})
+                                       "created": old.get("created") or mg.now_iso(), "updated": mg.now_iso()})
             router.go("plan", "local")

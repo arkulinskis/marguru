@@ -1,4 +1,5 @@
 from anvil import *
+import anvil.js
 
 from ._anvil_designer import PromptCardTemplate
 from ... import mg, state
@@ -9,7 +10,8 @@ LEVELS = ["", "Easy", "Some effort", "Involved"]
 class PromptCard(PromptCardTemplate):
     """#plan: one prompt card. item = {p: the built prompt (mg.build), host: the Plan page}.
     The page keeps the progress (host.progress(), host.persist(...)); the card redraws itself (draw) so the keyboard
-    keeps its place. Copy / ChatGPT / Claude also count an anonymous copy (track_copy)."""
+    keeps its place. Copy / ChatGPT / Claude also count an anonymous copy (track_copy).
+    "Answer not right?" (2026-11-20): four follow-up chips from host.followups (mg.followups), copied with mg.copy."""
 
     def __init__(self, **properties):
         super().__init__(**properties)
@@ -36,6 +38,16 @@ class PromptCard(PromptCardTemplate):
         state.set_control_attr(self.note_area, "aria-label", "Your notes on this prompt")
         self.note_area.text = self.host.progress()["notes"].get(self.pid, "")
         self.note_open = False
+        self.fus = list(getattr(self.host, "followups", None) or [])[:4]
+        for i in range(4):
+            node = n["fu%d" % i]
+            if i < len(self.fus):
+                node.innerHTML = '<i class="ic ic-copy"></i>'
+                node.appendChild(anvil.js.window.document.createTextNode(self.fus[i]["label"]))
+            else:
+                node.style.display = "none"
+        if not self.fus:
+            n["fix"].style.display = "none"
         self.draw()
 
     def draw(self, stamping=False):
@@ -122,6 +134,26 @@ class PromptCard(PromptCardTemplate):
         self.host.persist(self.pid, "done", on)
         self.draw(stamping=on)
         self.host.step_done(self, on)
+
+    def _followup(self, i):
+        """"Answer not right?": copy one follow-up (Sound more like me, Shorter, 3 versions, Mark anything made up)."""
+        if i >= len(self.fus):
+            return
+        ok = mg.copy(self.fus[i]["text"])
+        state.toast("Copied. Paste it into the same chat, right after the answer." if ok
+                    else "Couldn't copy here. Try again, or type your request in the chat.", "ok" if ok else "error")
+
+    def fu0_click(self, event):
+        self._followup(0)
+
+    def fu1_click(self, event):
+        self._followup(1)
+
+    def fu2_click(self, event):
+        self._followup(2)
+
+    def fu3_click(self, event):
+        self._followup(3)
 
     def stamp_node(self):
         return self.dom_nodes["stamp"]

@@ -86,6 +86,16 @@
     await open('#wins', /actually worked/);
     await open('#wins/maps', /actually worked/);
     await open('#plan/example', /Crumb/);
+    // 2026-11-20: By week, Set up your AI once, follow-ups, monthly numbers
+    const wkBtn = $$('.pl-view button').find((b) => /By week/.test(b.textContent));
+    if (wkBtn) { wkBtn.click(); await sleep(800); } else bad.push('#plan/example: no By week toggle');
+    if (!$('.wk.is-now')) bad.push('#plan/example: the week view has no "This week"');
+    if (errs.length) bad.push('#plan/example By week: ' + errs.splice(0).join(' / '));
+    const stBtn = $$('.pl-view button').find((b) => /By stage/.test(b.textContent)); if (stBtn) { stBtn.click(); await sleep(500); }
+    if (!$('.pl-setup')) bad.push('#plan/example: no "Set up your AI once" note');
+    if (!$('.pc-chip')) bad.push('#plan/example: no follow-up chips');
+    await open('#numbers/example', /Did it work/);
+    if ($$('.sc-row').length < 3) bad.push('#numbers/example: expected 3 example months');
     await open('#auth', /Sign in/);
     await open('#auth/signup', /Create account/);
     // a guest builds a playbook (kept in this browser)
@@ -100,6 +110,7 @@
     const tick = $('.pc-done input'); if (tick) tick.click(); else bad.push('#plan/local: no Done tick box');
     await sleep(500);
     await open('#build/local', /Save changes|your business/);
+    await open('#numbers/local', /Did it work/);
 
     // ---- a member: the guest plan moves into the account
     const ok = await signUp('Smoke Tester', 'smoke' + Date.now() + '@example.com', 'Mg-' + Math.random().toString(36).slice(2) + '-Kq7');
@@ -113,6 +124,7 @@
     await sleep(800);
     const tab = $$('.pl-tab')[1]; if (tab) { tab.click(); await sleep(600); }
     await open('#build/' + planHash.split('/')[1], /Save changes|your business/);
+    await open('#numbers/' + planHash.split('/')[1], /Did it work/);
     await open('#home', /Crumb/);
     await open('#wins', /Share a win/);
     await open('#guide', /actually do/);

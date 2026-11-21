@@ -23,6 +23,7 @@
           <div class="pl-actions">
             <a class="ui-btn primary" href="#build" anvil:name="mine_link"><i class="ic ic-plus"></i>Build mine</a>
             <a class="ui-btn" href="#build" anvil:name="edit_link"><i class="ic ic-edit"></i>Edit details</a>
+            <a class="ui-btn" href="#numbers" anvil:name="numbers_link"><i class="ic ic-chart"></i>Numbers</a>
             <anvil-component type="Button" name="download_button" prop:text="Download" prop:role='["btn", "ic-download"]'></anvil-component>
             <anvil-component type="Button" name="delete_button" prop:text="Delete this plan" prop:role='["btn", "btn-ghost", "btn-icon", "ic-trash"]'></anvil-component>
           </div>
@@ -41,6 +42,19 @@
           <a class="ui-btn sm" href="#build">Build your own</a>
         </div>
 
+        <section class="pl-setup" anvil:name="setup_part" aria-labelledby="pl-setup-h">
+          <div class="pl-setup-text">
+            <h2 id="pl-setup-h">Set up your AI <em>once</em></h2>
+            <p>Paste these instructions into <b>ChatGPT</b> (Settings, Personalization, Custom instructions, or a Project's instructions) or <b>Claude</b> (a Project, then "Set project instructions"). Every chat then starts out knowing your business and your voice.</p>
+            <anvil-component type="Label" name="setup_count" prop:role='["pl-setup-count"]'></anvil-component>
+          </div>
+          <div class="pl-setup-act">
+            <anvil-component type="Button" name="copy_ai_button" prop:text="Copy AI instructions" prop:role='["btn", "ic-copy"]'></anvil-component>
+            <button type="button" class="pl-setup-show" anvil:dom-node="setup_show" anvil:on-dom:click="self.setup_show_click" aria-expanded="false">See them</button>
+          </div>
+          <pre class="pl-setup-pre" anvil:dom-node="setup_pre"></pre>
+        </section>
+
         <section class="pl-next" anvil:name="next_part">
           <h2>Start here</h2>
           <anvil-component type="RepeatingPanel" name="next_panel" prop:item_template="Marguru.Items.NextItem" prop:role='["pl-next-list"]'></anvil-component>
@@ -53,6 +67,28 @@
           </div>
         </section>
 
+        <div class="pl-view">
+          <div class="ui-seg" role="group" aria-label="Show the playbook">
+            <button type="button" anvil:dom-node="by_stage" anvil:on-dom:click="self.by_stage_click"><i class="ic ic-grid"></i>By stage</button>
+            <button type="button" anvil:dom-node="by_week" anvil:on-dom:click="self.by_week_click"><i class="ic ic-calendar"></i>By week</button>
+          </div>
+        </div>
+
+        <section class="pl-weeks" anvil:name="week_part" aria-labelledby="pl-weeks-h">
+          <div class="pl-weeks-head">
+            <div>
+              <h2 id="pl-weeks-h">Your <em>12 weeks</em></h2>
+              <anvil-component type="Label" name="weeks_lead" prop:role='["pl-weeks-lead"]'></anvil-component>
+            </div>
+            <div class="pl-weeks-act">
+              <anvil-component type="Button" name="ics_button" prop:text="Add a weekly reminder to my calendar" prop:role='["btn", "ic-calendar"]'></anvil-component>
+              <span class="fine-print">A calendar file: Mondays at 9:00 for 12 weeks, with a link back here. Move it to any time.</span>
+            </div>
+          </div>
+          <anvil-component type="RepeatingPanel" name="weeks_panel" prop:item_template="Marguru.Items.WeekCard" prop:role='["pl-week-list"]'></anvil-component>
+        </section>
+
+        <div anvil:name="stage_part">
         <div class="pl-body" anvil:dom-node="body">
           <nav class="pl-tabs" aria-label="Stages">
             <anvil-component type="RepeatingPanel" name="tabs_panel" prop:item_template="Marguru.Items.StageTab" prop:role='["contents"]'></anvil-component>
@@ -69,6 +105,10 @@
               <div class="k"><i class="ic" anvil:dom-node="stage_icon"></i><span anvil:dom-node="agency_k"></span></div>
               <p anvil:dom-node="agency"></p>
             </div>
+            <div class="pl-numbers" anvil:name="numbers_note">
+              <p><b>Did it work?</b> Keep your monthly numbers here: six months side by side, cost per lead and per customer, and the report prompt below filled in with them.</p>
+              <a class="ui-btn sm" href="#numbers" anvil:name="numbers_link2"><i class="ic ic-chart"></i>Open your numbers</a>
+            </div>
             <anvil-component type="RepeatingPanel" name="cards_panel" prop:item_template="Marguru.Items.PromptCard" prop:role='["pl-cards"]'></anvil-component>
             <div class="pl-pager">
               <anvil-component type="Button" name="prev_button" prop:role='["btn", "ic-back"]'></anvil-component>
@@ -77,6 +117,7 @@
             </div>
             <anvil-component type="RepeatingPanel" name="hidden_panel" prop:item_template="Marguru.Items.Text" prop:role='["pl-hidden"]'></anvil-component>
           </div>
+        </div>
         </div>
       </div>
     </div>

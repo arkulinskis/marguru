@@ -130,6 +130,17 @@ tools/                     check.py, assets.py, build_icons.py, make_icons.py, u
   (`python -I APP_MAKER/tools/loaders.py apply marguru <preset>`), `LEGAL_THEME` in startup.py.
 - **Icon:** edit theme/assets/icon.svg, `python -I tools/make_icons.py`, then `python tools/assets.py`.
 
+- **Sound like you / Your week / Did it work? (2026-11-20):** profile keys `voice_like`, `voice_never` (200), `voice_sample`
+  (600, multiline) and `hours` ("1"/"2"/"4", default "2") are cleaned in `Plans.clean_profile` (voice keys only stored when
+  filled; no schema change). `MG.values` appends them to `v.brief` only when filled, so older plans' prompt text is unchanged.
+  `MG.instructions` / `MG.followups` / `MG.weeks` / `MG.icsText` / `MG.ics` live in mg.js and reach Python through
+  `MG.json` (`mg.instructions/followups/weeks/ics/plan_url`). Monthly numbers: table `scores` (plan, owner, month "YYYY-MM",
+  numbers obj, note, updated), `server_code/Scores.py` (list/save/delete, all `Plans._own`; keys whitelisted, max 36 months;
+  answers "still being switched on" until the schema is accepted), page `Pages/Scores` at `#numbers/<plan|local|example>`
+  (router treats it like #plan), items `ScoreField`, `ScoreRow`; guests use localStorage `marguru.scores.local`, moved into
+  the account by the Desk with the guest plan. Week view items: `WeekCard`, `WeekTask` (host.jump_to). ChatGPT/Claude menu
+  names in the "Set up your AI once" note were checked on both help centres 2026-11-20.
+
 ## Gotchas
 
 - The local App Server (1.18) lags hosted Anvil: no `HtmlComponent.attrs` (use state.set_attr), `Notification(role=)`

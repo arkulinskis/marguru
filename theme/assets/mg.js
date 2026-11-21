@@ -36,6 +36,7 @@
   MG.BUDGETS = [['0', '$0 for now'], ['300', 'Under $300/mo'], ['1000', '$300 to $1,000/mo'], ['3000', '$1,000 to $3,000/mo'], ['more', 'Over $3,000/mo']];
   MG.REPEAT = [['once', 'Once'], ['sometimes', 'A few times a year'], ['often', 'Monthly or more']];
   MG.VOICES = [['warm', 'Warm & friendly'], ['premium', 'Premium & calm'], ['bold', 'Bold & funny'], ['expert', 'Expert & no-nonsense']];
+  MG.HOURS = [['1', 'About 1 hour'], ['2', 'About 2 hours'], ['4', '4 hours or more']];
   MG.HAS = [['site', 'A website'], ['gbp', 'A Google Business Profile'], ['social', 'Instagram / Facebook / TikTok'], ['email', 'An email list'],
     ['reviews', '10+ Google reviews'], ['photos', 'Good photos or videos']];
   MG.CHANNELS = [['maps', 'Google Maps & reviews'], ['site', 'Website'], ['seo', 'SEO'], ['gads', 'Google Ads'], ['social', 'Social ads'],
@@ -95,7 +96,8 @@
       edge: ph(p.edge, 'why people choose you over others'), competitors: ph(p.competitors, 'two or three competitors'),
       goal: p.goal || 'calls', goalText: GOAL_TEXT[p.goal] || GOAL_TEXT.calls,
       budget: p.budget || '0', budgetText: BUDGET_TEXT[p.budget] || BUDGET_TEXT['0'], paid: (p.budget || '0') !== '0',
-      voiceText: VOICE_TEXT[p.voice] || VOICE_TEXT.warm, tried: String(p.tried || '').trim(), site: String(p.site_url || '').trim()
+      voiceText: VOICE_TEXT[p.voice] || VOICE_TEXT.warm, tried: String(p.tried || '').trim(), site: String(p.site_url || '').trim(),
+      like: String(p.voice_like || '').trim(), never: String(p.voice_never || '').trim(), sample: String(p.voice_sample || '').trim()
     };
     var text = (String(p.what || '') + ' ' + String(p.name || '')).toLowerCase();
     v.housing = p.type === 'realestate' || /\b(rent|rental|apartment|condo|housing|real estate|realtor|mortgage)/.test(text);
@@ -115,7 +117,11 @@
       '- Ad budget: ' + v.budgetText + '\n' +
       '- Brand voice: ' + v.voiceText +
       (v.site ? '\n- Website: ' + v.site : '') +
-      (v.tried ? '\n- Already tried: ' + v.tried : '');
+      (v.tried ? '\n- Already tried: ' + v.tried : '') +
+      /* "Sound like you" (2026-11-20): only added when filled, so older plans' prompts stay exactly the same */
+      (v.like ? '\n- Words we like: ' + v.like : '') +
+      (v.never ? '\n- Never use: ' + v.never : '') +
+      (v.sample ? '\n- How I write (match this voice):\n"""\n' + v.sample + '\n"""' : '');
     return v;
   };
 
@@ -658,13 +664,155 @@
     return out.join('\n');
   };
 
+  /* ---------------------------------------------------------------- Sound like you (2026-11-20)
+     Style help, not facts: the owner's own words go into "Set up your AI once" and the follow-up chips on each card.
+     ChatGPT: Settings > Personalization > Custom instructions (1,500 characters on Free and Go, 5,000 on paid plans),
+     or a Project's instructions. Claude: a Project > "Set project instructions". Checked on both help centres 2026-11-20. */
+  function dot(s) { s = String(s || '').trim(); return /[.!?)\]"]$/.test(s) ? s : s + '.'; }
+  MG.instructions = function (profile) {
+    var v = MG.values(profile), L = [];
+    L.push('I run ' + v.name + ': ' + dot(v.what) + ' Kind of business: ' + dot(v.typeLabel) + ' ' + dot(v.whereLine));
+    L.push('Our best customers: ' + dot(v.customer));
+    L.push('Why people pick us: ' + dot(v.edge));
+    L.push('');
+    L.push('Whenever you write anything for us (posts, ads, emails, web pages, review replies):');
+    L.push('- Voice: ' + v.voiceText + '. Write like a real person who works here, talking to one customer, not like an ad.');
+    L.push('- Plain words and short sentences. No hype, no filler, no cliches like "elevate", "unlock", "game-changer" or "in today\'s fast-paced world".');
+    if (v.like) L.push('- Words and phrases we like: ' + dot(v.like));
+    if (v.never) L.push('- Never use these words: ' + dot(v.never));
+    L.push('- Never invent facts about us (reviews, awards, years, prices, numbers). Leave [brackets] where I must fill something in.');
+    L.push('- If something important is missing, ask me up to 3 short questions before you start.');
+    if (v.sample) L.push('', 'Something I wrote, so you can match my voice:', '"""', v.sample, '"""');
+    return L.join('\n');
+  };
+  /* "Answer not right?": follow-ups to paste into the same chat, right after a weak answer. */
+  MG.followups = function (profile) {
+    var v = MG.values(profile);
+    return [
+      { id: 'me', label: 'Sound more like me',
+        text: 'Rewrite your last answer so it sounds like me, not like an ad or a robot. My voice: ' + v.voiceText + '.' +
+          (v.like ? ' Words I like: ' + dot(v.like) : '') +
+          ' Never use: ' + (v.never ? v.never + ', or any hype words like "elevate", "unlock" or "game-changer".' : 'hype words like "elevate", "unlock" or "game-changer".') +
+          (v.sample ? '\n\nMatch the voice of this, which I wrote:\n"""\n' + v.sample + '\n"""' : '') +
+          '\n\nKeep every fact exactly as it was. Use plain words, short sentences and the way my customers actually talk.' },
+      { id: 'short', label: 'Shorter and plainer',
+        text: 'Make your last answer about half as long. Use plain everyday words and short sentences, cut every filler phrase, and don\'t add exclamation marks. Keep the meaning and every fact.' },
+      { id: 'three', label: '3 different versions',
+        text: 'Give me 3 clearly different versions of your last answer, labelled A, B and C: one warm and personal, one short and direct, one that starts from a problem my customer has. Under each, say in one line who it suits best.' },
+      { id: 'check', label: 'Mark anything you made up',
+        text: 'Go through your last answer and mark every fact, number, name, quote or claim that didn\'t come from me with [CHECK]. Then list them all at the end, so I can confirm or delete each one. Don\'t change anything else.' }
+    ];
+  };
+
+  /* ---------------------------------------------------------------- Your week (2026-11-20)
+     A 12-week schedule that fits the owner's hours: prompts fill the weeks by rank (first-fit among the next three),
+     done prompts are skipped, "/ week" prompts repeat every week once they're in, "/ month" ones every 4th week. */
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function mondayOf(d) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - (x.getDay() + 6) % 7); return x; }
+  function isoDay(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function shortDay(d) { return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); }
+  MG.minutes = function (time) {
+    var t = String(time || ''), m = /(\d+)\s*min/.exec(t), h = /(\d+)\s*h/.exec(t);
+    return { mins: m ? Number(m[1]) : h ? Number(h[1]) * 60 : 30, repeat: /\/\s*week/.test(t) ? 'week' : /\/\s*month/.test(t) ? 'month' : '' };
+  };
+  MG.hours = function (profile) { var h = { '1': 1, '2': 2, '4': 4 }[String((profile || {}).hours || '')]; return h || 2; };
+  MG.weeks = function (profile, progress, startIso, nowIso) {
+    var b = MG.build(profile), done = (progress && progress.done) || {};
+    var cap = MG.hours(profile) * 60;
+    var now = nowIso ? new Date(nowIso) : new Date();
+    if (isNaN(now.getTime())) now = new Date();
+    var start = startIso ? new Date(startIso) : now;
+    if (isNaN(start.getTime())) start = now;
+    var s0 = mondayOf(start), thisMon = mondayOf(now);
+    var cur = Math.floor(Math.round((thisMon - s0) / 86400000) / 7);
+    var cycle = 1;
+    if (cur < 0) { s0 = thisMon; cur = 0; }
+    if (cur >= 12) { cycle = Math.floor(cur / 12) + 1; s0 = thisMon; cur = 0; }  // after 12 weeks a new round starts this week
+    var weeks = [];
+    for (var i = 0; i < 12; i++) {
+      var ws = new Date(s0.getFullYear(), s0.getMonth(), s0.getDate() + 7 * i), we = new Date(ws.getFullYear(), ws.getMonth(), ws.getDate() + 6);
+      weeks.push({ n: i + 1, start: isoDay(ws), range: shortDay(ws) + ' to ' + shortDay(we), from: ws.getTime(),
+        to: new Date(ws.getFullYear(), ws.getMonth(), ws.getDate() + 7).getTime(), items: [], mins: 0, cap: cap, now: i === cur, past: i < cur });
+    }
+    function weekOf(iso) {
+      var t = Date.parse(iso);
+      if (isNaN(t) || t < weeks[0].from) return cur > 0 ? 0 : -1;  // done earlier (or no date): the first week
+      for (var k = 0; k < weeks.length; k++) if (t >= weeks[k].from && t < weeks[k].to) return Math.min(k, cur);
+      return cur;
+    }
+    function has(w, id) { return w.items.some(function (x) { return x.id === id; }); }
+    function add(w, p, isDone) {
+      var t = MG.minutes(p.time);
+      w.items.push({ id: p.id, title: p.title, stage: p.stage, time: p.time, mins: t.mins, repeat: t.repeat, done: !!isDone });
+      w.mins += t.mins;
+    }
+    var rec = [];
+    b.first.forEach(function (p) {
+      if (!done[p.id]) return;
+      var w = weekOf(done[p.id]);
+      if (w >= 0) add(weeks[w], p, true);
+      var r = MG.minutes(p.time).repeat;
+      if (r) rec.push({ p: p, from: cur, every: r === 'week' ? 1 : 4 });  // a habit already: it repeats from this week
+    });
+    var todo = b.first.filter(function (p) { return !done[p.id]; });
+    for (var wi = cur; wi < 12; wi++) {
+      var w = weeks[wi];
+      rec.forEach(function (r) {
+        var m = MG.minutes(r.p.time).mins;
+        if (wi >= r.from && (wi - r.from) % r.every === 0 && !has(w, r.p.id) && (w.mins + m <= cap || !w.items.length)) add(w, r.p, false);
+      });
+      var j = 0, looked = 0;
+      while (j < todo.length && looked < 3) {
+        var p = todo[j], t = MG.minutes(p.time);
+        if (w.mins + t.mins <= cap || !w.items.length) {
+          add(w, p, false);
+          todo.splice(j, 1);
+          if (t.repeat) rec.push({ p: p, from: wi, every: t.repeat === 'week' ? 1 : 4 });
+        } else { j += 1; looked += 1; }
+      }
+    }
+    weeks.forEach(function (x) { delete x.from; delete x.to; });
+    return { weeks: weeks, current: cur, hours: MG.hours(profile), cap: cap, cycle: cycle, left: todo.length };
+  };
+
+  /* A weekly calendar reminder (.ics) that runs 12 times, linking back to the plan. No email involved. */
+  function icsEsc(s) { return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+  function icsFold(line) { var out = []; while (line.length > 60) { out.push(line.slice(0, 60)); line = ' ' + line.slice(60); } out.push(line); return out.join('\r\n'); }
+  function icsLocal(d) { return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + 'T' + pad(d.getHours()) + pad(d.getMinutes()) + '00'; }
+  MG.icsText = function (profile, url, nowIso) {
+    var now = nowIso ? new Date(nowIso) : new Date();
+    var first = mondayOf(now); first.setHours(9, 0, 0, 0);
+    if (first.getTime() <= now.getTime()) first.setDate(first.getDate() + 7);  // next Monday, 9:00 your time
+    var u = new Date(now.getTime());
+    var stamp = u.getUTCFullYear() + pad(u.getUTCMonth() + 1) + pad(u.getUTCDate()) + 'T' + pad(u.getUTCHours()) + pad(u.getUTCMinutes()) + pad(u.getUTCSeconds()) + 'Z';
+    var name = String((profile || {}).name || '').trim() || 'my business';
+    var desc = 'Your weekly marketing time for ' + dot(name) + '\n\nOpen your Marguru playbook, switch to "By week" and do this week\'s tasks:\n' + url +
+      '\n\nMove this to any time that suits you.';
+    var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Marguru//Your week//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
+      'UID:' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10) + '@marguru.anvil.app', 'DTSTAMP:' + stamp,
+      'DTSTART:' + icsLocal(first), 'DURATION:PT' + MG.hours(profile) + 'H', 'RRULE:FREQ=WEEKLY;COUNT=12',
+      'SUMMARY:' + icsEsc('Marketing time: ' + name), 'DESCRIPTION:' + icsEsc(desc), 'URL:' + url,
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + icsEsc('Marketing time: ' + name), 'TRIGGER:-PT15M', 'END:VALARM',
+      'END:VEVENT', 'END:VCALENDAR'];
+    return lines.map(icsFold).join('\r\n') + '\r\n';
+  };
+  MG.ics = function (profile, url) {
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([MG.icsText(profile, url)], { type: 'text/calendar' }));
+    a.download = (String((profile || {}).name || 'marguru').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').toLowerCase() || 'marguru') + '-marketing-week.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+
   MG.EXAMPLE = {
     name: 'Crumb & Co.', what: 'sourdough bread, pastries and custom celebration cakes', type: 'food', reach: 'visit', where: 'Verdun, Montréal',
     customer: 'young families and remote workers within a 10-minute walk; parents ordering birthday cakes 1-2 weeks ahead',
     price: 18, repeat: 'often', goal: 'walkins', budget: '300',
     edge: 'bread baked at 5 a.m. daily with organic Québec flour; custom cakes on 72 hours\' notice',
     competitors: 'a chain bakery-café two blocks away; supermarket bakery counters', voice: 'warm',
-    has: { site: true, gbp: true, social: true, photos: true }, tried: 'posting on Instagram now and then; one round of flyers'
+    has: { site: true, gbp: true, social: true, photos: true }, tried: 'posting on Instagram now and then; one round of flyers',
+    hours: '2', voice_like: 'fresh out of the oven, neighbours, real butter, see you tomorrow',
+    voice_never: 'artisanal, elevate, indulge, mouth-watering, delightful',
+    voice_sample: 'The sourdough is out at 7. Come early on Saturdays, the seeded loaf goes fast. Birthday this month? Tell us by Wednesday and the cake is yours on Saturday.'
   };
 
   /* Short, checked facts shown as "Guru tips" around the app. Keep each one sourced (see the Field guide). */
@@ -685,7 +833,7 @@
   MG.tipOfDay = function () { var d = new Date(); return MG.TIPS[(d.getFullYear() * 400 + d.getMonth() * 31 + d.getDate()) % MG.TIPS.length]; };
 
   /* Profile cleaning in the browser (the server cleans again). */
-  MG.blank = function () { return { name: '', what: '', type: '', reach: 'visit', where: '', customer: '', price: '', repeat: 'sometimes', goal: 'calls', budget: '300', edge: '', competitors: '', voice: 'warm', has: {}, tried: '', site_url: '' }; };
+  MG.blank = function () { return { name: '', what: '', type: '', reach: 'visit', where: '', customer: '', price: '', repeat: 'sometimes', goal: 'calls', budget: '300', edge: '', competitors: '', voice: 'warm', has: {}, tried: '', site_url: '', hours: '2', voice_like: '', voice_never: '', voice_sample: '' }; };
 
   /* Links that open an AI chat with the prompt typed in. Copying always happens too, as a fallback. */
   MG.openUrl = function (where, text) {
@@ -741,8 +889,12 @@
     stages: function (profile) { var b = MG.build(JSON.parse(profile)); return JSON.stringify({ prompts: b.prompts.length, stages: b.stages.map(function (s) { return { title: s.title, n: s.prompts.length }; }) }); },
     download: function (profile, progress) { MG.download(JSON.parse(profile), JSON.parse(progress)); return true; },
     info: function (id) { var p = MG.prompt(id); return JSON.stringify(p ? { id: p.id, title: p.title, stage: p.stage } : null); },
+    instructions: function (profile) { return MG.instructions(JSON.parse(profile)); },
+    followups: function (profile) { return JSON.stringify(MG.followups(JSON.parse(profile))); },
+    weeks: function (profile, progress, startIso) { return JSON.stringify(MG.weeks(JSON.parse(profile), JSON.parse(progress), startIso || '')); },
+    ics: function (profile, url) { MG.ics(JSON.parse(profile), url); return true; },
     data: function () {
-      return JSON.stringify({ TYPES: MG.TYPES, REACH: MG.REACH, GOALS: MG.GOALS, BUDGETS: MG.BUDGETS, REPEAT: MG.REPEAT, VOICES: MG.VOICES,
+      return JSON.stringify({ TYPES: MG.TYPES, REACH: MG.REACH, GOALS: MG.GOALS, BUDGETS: MG.BUDGETS, REPEAT: MG.REPEAT, VOICES: MG.VOICES, HOURS: MG.HOURS,
         HAS: MG.HAS, CHANNELS: MG.CHANNELS, STAGES: MG.STAGES, TIPS: MG.TIPS, EXAMPLE: MG.EXAMPLE, BLANK: MG.blank() });
     }
   };

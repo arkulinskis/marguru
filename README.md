@@ -13,13 +13,21 @@ an Ad math calculator; and a Wins board where owners share what worked. Built on
 
 **For everyone (no account needed):**
 - **Landing page** (`#landing`): the promise, the 8 jobs agencies do, how it works, features, "what Marguru won't help you do", FAQ.
-- **Build a playbook** (`#build`): a 4-part form (basics, customers, goal and budget, what you have and your brand voice) with a live count
-  of how many prompts your answers unlock, and **Fill with an example**. Guests' plans are kept in the browser (`#plan/local`).
+- **Build a playbook** (`#build`): a 4-part form (basics, customers, goal, budget and time for marketing each week, what you have and your
+  brand voice) with a live count of how many prompts your answers unlock, and **Fill with an example**. Part 4's optional **Sound like you**
+  box takes words you like, words you never use and a sample of your writing; they're added to the brief only when filled, so older plans'
+  prompts don't change. Guests' plans are kept in the browser (`#plan/local`).
 - **The playbook** (`#plan/<id>`, `#plan/local`, `#plan/example`): progress bar, "Start here" (the next 3 prompts by priority),
   binder tabs for the 8 stages, each with "What an agency does here" and the agency role. Each prompt card has "Why agencies do this",
   the full prompt (the shared business brief folds into a chip until you expand it), "You get" / "Then", **Copy prompt**, **ChatGPT** / **Claude**
   (opens the chat with the prompt and also copies it), star, notes and **Done** (rubber-stamp animation; confetti when a stage is complete).
-  **Download** saves the whole playbook as Markdown. Prompts adapt to the business: Maps prompts only for local businesses, paid-ads
+  **Download** saves the whole playbook as Markdown.
+  **Set up your AI once** (a sticky note): **Copy AI instructions** for ChatGPT's Custom instructions or a ChatGPT/Claude Project, with a
+  character count (1,500 on free ChatGPT). Every card has **Answer not right?** with four follow-ups to paste into the same chat: Sound more
+  like me (with your never-words), Shorter and plainer, 3 different versions, Mark anything you made up.
+  **By stage | By week**: a 12-week schedule that fits your weekly hours ("This week" highlighted, ticked prompts drop out, weekly prompts
+  repeat every week and monthly ones every 4th week; a task opens its card) and **Add a weekly reminder to my calendar** (an .ics file:
+  Mondays 9:00 for 12 weeks, linking back to the plan; no email). Prompts adapt to the business: Maps prompts only for local businesses, paid-ads
   prompts only with a budget, product/feed prompts for stores, Local Services Ads for trades and professionals, Meta Special Ad Category
   and health-claim warnings when the business looks like housing, finance, hiring or health.
 - **Field guide** (`#guide`, `#guide/<section>`): the short answer, the 8 jobs with what they're called on an invoice, why everyone opens
@@ -27,11 +35,16 @@ an Ad math calculator; and a Wins board where owners share what worked. Built on
   DIY vs hire, a searchable **jargon buster** (34 terms), and **sources** with a trust label for each.
 - **Ad math** (`#math`): budget → clicks → leads → customers → profit, cost per lead and per customer, break-even cost per click, most you
   can pay per lead, agency fee share, and a verdict with the lever to fix. Defaults: LocaliQ/WordStream 2025 US search averages.
+- **Did it work?** (`#numbers/<plan>`, `#numbers/local`, `#numbers/example`; from the plan header, the Measure stage and the Desk): pick a
+  month and fill in calls & bookings, enquiries, new customers, sales, new Google reviews (local businesses) and ad spend (with a budget),
+  plus what you did. The last 6 saved months show arrows against the month before, and cost per lead / per customer (plain division, no
+  benchmarks). **Copy for your monthly report** copies the `report` prompt with this month's and last month's numbers. Guests' numbers stay
+  in the browser and move into the account with the plan; the example has 3 labelled months.
 - **Wins board** (`#wins`): read and filter by channel. Demo wins are labelled "Example".
 - Sign-up with email and password or Google, feedback through Prepsto ("Submit feedback" in the footer and menu opens its panel), and the Privacy & Terms page.
 
 **For members:**
-- **Desk** (`#home`): your plans with a progress ring and the next prompt, a new-plan card, a Guru tip of the day (checked facts with
+- **Desk** (`#home`): your plans with a progress ring, this week's tasks and **Your week** / **Numbers** buttons, a new-plan card, a Guru tip of the day (checked facts with
   their source), the latest wins and quick links. A plan made before signing up moves into the account automatically.
 - Plans are saved with progress (done, stars, notes) on the server; edit or delete them. Up to 20 plans each.
 - Post a win, clap ("This helped") for others, delete your own.

@@ -1,4 +1,6 @@
 from anvil import *
+import datetime
+
 import anvil.js
 import anvil.server
 
@@ -18,7 +20,10 @@ class Plan(PlanTemplate):
     Three sources: a saved plan (server: get_plan / set_step), the guest plan in this browser (mg store 'guestPlan'),
     or the built-in example (progress kept in memory). Binder tabs = the 8 stages; each prompt card (Items/PromptCard)
     can be copied, opened in ChatGPT / Claude (copied too), starred, noted and ticked done. The router sends
-    #plan/<id> to sign-in for visitors, and #plan/local to #build when this browser has no plan."""
+    #plan/<id> to sign-in for visitors, and #plan/local to #build when this browser has no plan.
+    2026-11-20: "Set up your AI once" (mg.instructions), follow-up chips on each card (self.followups),
+    "By stage | By week" (mg.weeks: 12 weeks that fit the profile's hours, Items/WeekCard + .ics reminder) and links to
+    #numbers (Pages/Scores)."""
 
     def __init__(self, args=(), **properties):
         super().__init__(**properties)
@@ -30,11 +35,16 @@ class Plan(PlanTemplate):
         self.next_panel.add_event_handler("x-jump", self._jump)
         self.tabs_panel.add_event_handler("x-stage", self._tab)
         self.plan: dict = {}
+        self.start = ""
+        self.setup_open = False
         if self.kind == "example":
             self.plan = {"id": None, "profile": mg.example(), "progress": _clean(EXAMPLE_PROGRESS)}
+            # the example started last week, so "This week" is week 2
+            self.start = (datetime.datetime.utcnow() - datetime.timedelta(days=7)).isoformat()[:19] + "Z"
         elif self.kind == "local":
             g = mg.store_get("guestPlan") or {}
             self.plan = {"id": None, "profile": g.get("profile") or mg.blank(), "progress": _clean(g.get("progress"))}
+            self.start = g.get("created") or g.get("updated") or ""
         else:
             r = anvil.server.call("get_plan", arg)
             if not isinstance(r, dict) or not r.get("ok"):
@@ -42,8 +52,10 @@ class Plan(PlanTemplate):
                 return
             self.plan = r["plan"]
             self.plan["progress"] = _clean(self.plan.get("progress"))
+            self.start = self.plan.get("created") or ""
         self.missing.visible = False
         self.stage = mg.store_get("stage." + (self.plan.get("id") or self.kind))
+        self.view = mg.store_get("view." + (self.plan.get("id") or self.kind)) or "stage"
         self.draw()
 
     # ---- progress (the cards read and change it through these)
@@ -97,6 +109,7 @@ class Plan(PlanTemplate):
 
     def draw(self):
         self.book = mg.build(self.plan["profile"])
+        self.followups = mg.followups(self.plan["profile"])
         if not any(s["id"] == self.stage for s in self.book["stages"]):
             self.stage = self.book["stages"][0]["id"]
         pf = self.plan["profile"]
@@ -114,6 +127,10 @@ class Plan(PlanTemplate):
         self.delete_button.visible = self.kind == "server"
         self.local_banner.visible = local
         self.example_banner.visible = example
+        num = router.href("numbers", self.plan.get("id") if self.kind == "server" else self.kind)
+        state.set_attr(self.numbers_link, "href", num)
+        state.set_attr(self.numbers_link2, "href", num)
+        self._setup()
         self._progress_bar()
         nxt = self._next_up()
         self.next_part.visible = bool(nxt)
@@ -122,6 +139,79 @@ class Plan(PlanTemplate):
                                   "stage": mg.stage_title(p["stage"])} for i, p in enumerate(nxt)]
         self._tabs()
         self._sheet()
+        self._show_view()
+
+    # ---- Set up your AI once
+    def _setup(self):
+        text = mg.instructions(self.plan["profile"])
+        self.ai_text = text
+        self.dom_nodes["setup_pre"].textContent = text
+        n = len(text)
+        self.setup_count.text = ("%d characters. Free ChatGPT accounts save up to 1,500; paid plans up to 5,000. %s" % (
+            n, "Too long for a free account? Remove the sample from the end." if n > 1500 else "This fits."))
+        self._setup_draw()
+
+    def _setup_draw(self):
+        btn = self.dom_nodes["setup_show"]
+        btn.textContent = "Hide them" if self.setup_open else "See them"
+        btn.setAttribute("aria-expanded", "true" if self.setup_open else "false")
+        self.dom_nodes["setup_pre"].style.display = "" if self.setup_open else "none"
+
+    def setup_show_click(self, event):
+        self.setup_open = not self.setup_open
+        self._setup_draw()
+
+    @handle("copy_ai_button", "click")
+    def copy_ai_button_click(self, **event_args):
+        ok = mg.copy(self.ai_text)
+        state.toast("Copied. Paste it into ChatGPT's Custom instructions or a Project's instructions." if ok
+                    else "Couldn't copy: press See them, select the text and copy it by hand.", "ok" if ok else "error")
+
+    # ---- By stage | By week
+    def _show_view(self):
+        week = self.view == "week"
+        self.stage_part.visible = not week
+        self.week_part.visible = week
+        for node, on in ((self.dom_nodes["by_stage"], not week), (self.dom_nodes["by_week"], week)):
+            node.classList.toggle("on", on)
+            node.setAttribute("aria-pressed", "true" if on else "false")
+        if week:
+            self._weeks()
+
+    def _set_view(self, view):
+        if view == self.view:
+            return
+        self.view = view
+        mg.store_set("view." + (self.plan.get("id") or self.kind), view)
+        self._show_view()
+
+    def by_stage_click(self, event):
+        self._set_view("stage")
+
+    def by_week_click(self, event):
+        self._set_view("week")
+
+    def _weeks(self):
+        wk = mg.weeks(self.plan["profile"], self.progress(), self.start)
+        h = wk["hours"]
+        lead = "Planned for about %s a week, the most useful prompts first. Ticked prompts drop out; weekly and monthly ones come back." % (
+            "1 hour" if h == 1 else "%d hours" % h)
+        if wk["cycle"] > 1:
+            lead += " Round %d: a new 12 weeks started this week." % wk["cycle"]
+        if wk["left"]:
+            lead += " %s don't fit yet: more hours (Edit details) or the next round." % state.plural(wk["left"], "prompt")
+        self.weeks_lead.text = lead
+        self.weeks_panel.items = [{"w": w, "host": self} for w in wk["weeks"]]
+
+    def jump_to(self, pid):
+        """A task in the week view: open its card in the stage view."""
+        self._set_view("stage")
+        self._jump(pid)
+
+    @handle("ics_button", "click")
+    def ics_button_click(self, **event_args):
+        mg.ics(self.plan["profile"], mg.plan_url(self.kind, self.plan.get("id")))
+        state.toast("Downloaded. Open the file to add the weekly reminder to your calendar.", "ok")
 
     def _progress_bar(self):
         total = len(self.book["prompts"])
@@ -162,6 +252,7 @@ class Plan(PlanTemplate):
         icon.className = "ic ic-" + s["icon"]
         self.dom_nodes["agency_k"].textContent = "What an agency does here · " + s["role"]
         self.dom_nodes["agency"].textContent = s["agency"]
+        self.numbers_note.visible = s["id"] == "measure"
         self.cards_panel.items = [{"p": p, "host": self} for p in s["prompts"]]
         self._prev = stages[i - 1] if i > 0 else None
         self._next = stages[i + 1] if i + 1 < len(stages) else None

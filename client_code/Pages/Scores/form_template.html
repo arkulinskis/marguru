@@ -1,0 +1,71 @@
+<anvil-form layout="Marguru.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap">
+      <div anvil:name="missing" class="ui-empty pl-missing">
+        <i class="ic ic-chart"></i>
+        <h2>We couldn't open those numbers</h2>
+        <p>The plan may have been deleted, or it belongs to another account.</p>
+        <a class="ui-btn primary" href="#home">Go to your desk</a>
+      </div>
+
+      <div anvil:name="main_part">
+        <div class="ui-page-head">
+          <div>
+            <h1>Did it <em>work?</em></h1>
+            <anvil-component type="Label" name="lead" prop:role='["page-lead"]'></anvil-component>
+          </div>
+          <div class="sc-tools">
+            <a class="ui-btn" href="#plan" anvil:name="back_link"><i class="ic ic-back"></i>Back to the playbook</a>
+          </div>
+        </div>
+
+        <div class="pl-banner" anvil:name="example_banner">
+          <p><b>Example numbers</b> for the made-up bakery: three months of them. Try changing one; nothing here is saved.</p>
+          <a class="ui-btn sm" href="#build">Build your own</a>
+        </div>
+        <div class="pl-banner" anvil:name="local_banner">
+          <p><b>These numbers live in this browser only.</b> Create a free account to keep them with your plan on any device.</p>
+          <a class="ui-btn sm" href="#auth/signup">Save it to an account</a>
+        </div>
+        <anvil-component type="Label" name="error_label" prop:role='["msg-error", "sc-error"]'></anvil-component>
+
+        <div class="sc">
+          <section class="ui-card sc-form" aria-labelledby="sc-form-h">
+            <h2 id="sc-form-h">Fill in a month</h2>
+            <label class="ui-field"><span>Month</span><anvil-component type="DropDown" name="month_dd"></anvil-component></label>
+            <anvil-component type="RepeatingPanel" name="fields_panel" prop:item_template="Marguru.Items.ScoreField" prop:role='["sc-fields"]'></anvil-component>
+            <label class="ui-field sc-note-field"><span>What we did this month <em>(optional)</em></span><anvil-component type="TextArea" name="note_box" prop:placeholder="New window sign; 2 Instagram reels; replied to every review"></anvil-component></label>
+            <div class="sc-actions">
+              <anvil-component type="Button" name="save_button" prop:text="Save this month" prop:role='["btn", "btn-primary", "ic-check"]'></anvil-component>
+              <anvil-component type="Button" name="delete_button" prop:text="Delete this month" prop:role='["btn", "btn-ghost", "ic-trash"]'></anvil-component>
+            </div>
+            <p class="ui-hint">Skip anything you don't track. Rough numbers beat no numbers: your Google Business Profile, booking system, inbox and bank statement have most of them.</p>
+          </section>
+
+          <aside class="sc-side">
+            <div class="ui-card sc-report">
+              <h2 class="sc-report-h">Your monthly report</h2>
+              <p>Copies the "Write your monthly report like an agency" prompt with this month's and last month's numbers added. Paste it into ChatGPT or Claude for a written summary and 3 actions for next month.</p>
+              <anvil-component type="Button" name="report_button" prop:text="Copy for your monthly report" prop:role='["btn", "btn-primary", "btn-block", "ic-copy"]'></anvil-component>
+              <anvil-component type="Label" name="report_note" prop:role='["fine-print", "sc-report-note"]'></anvil-component>
+            </div>
+            <div class="ui-card flat sc-how">
+              <h3>How the sums work</h3>
+              <p class="small">Leads = calls &amp; bookings + enquiries. Cost per lead = ad spend ÷ leads. Cost per customer = ad spend ÷ new customers. Plain division, no benchmarks: compare yourself with your own last month.</p>
+            </div>
+          </aside>
+        </div>
+
+        <section class="sc-hist" aria-labelledby="sc-hist-h">
+          <h2 id="sc-hist-h">The last 6 months</h2>
+          <anvil-component type="RepeatingPanel" name="rows_panel" prop:item_template="Marguru.Items.ScoreRow" prop:role='["sc-rows"]'></anvil-component>
+          <div class="ui-empty" anvil:name="empty_part">
+            <i class="ic ic-chart"></i>
+            <h3>No numbers yet</h3>
+            <p>Start with last month: fill in what you know above and press Save. Next month you'll see the arrows.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

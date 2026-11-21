@@ -9,6 +9,10 @@ never edit them without checking a primary source). Everything here passes JSON 
     mg.tip_of_day()         [text, source]
     mg.blank()              an empty profile (the form's defaults)
     mg.store_get/store_set  this browser's storage as real dicts (same keys as the JS version: guestPlan, stage.*, math)
+    mg.instructions(p)      "Set up your AI once": the custom instructions text (Sound like you, 2026-11-20)
+    mg.followups(p)         [{id, label, text}]: the "Answer not right?" follow-ups on every prompt card
+    mg.weeks(p, pr, start)  Your week: {weeks: [{n, start, range, items, mins, cap, now, past}], current, hours, cycle, left}
+    mg.ics(p, url)          downloads the weekly calendar reminder (.ics, 12 weeks)
 """
 import datetime
 import json
@@ -87,6 +91,29 @@ def copy_soon(text):
         window.MG.copy(text)
     except Exception:
         pass
+
+
+def instructions(profile):
+    return str(window.MG.json.instructions(json.dumps(profile or {})))
+
+
+def followups(profile):
+    return json.loads(window.MG.json.followups(json.dumps(profile or {})))
+
+
+def weeks(profile, progress, start_iso):
+    return json.loads(window.MG.json.weeks(json.dumps(profile or {}), json.dumps(progress or {}), start_iso or ""))
+
+
+def ics(profile, url):
+    window.MG.json.ics(json.dumps(profile or {}), url)
+
+
+def plan_url(kind, plan_id=None):
+    """The address of a plan, for the calendar reminder (#plan/<id>, #plan/local or #plan/example)."""
+    loc = window.location
+    arg = plan_id if kind == "server" else kind
+    return str(loc.origin) + str(loc.pathname) + "#plan/" + str(window.encodeURIComponent(str(arg)))
 
 
 def download(profile, progress):

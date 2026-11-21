@@ -1,36 +1,5 @@
 allow_embedding: false
 db_schema:
-  error_log:
-    client: none
-    columns:
-    - admin_ui: {order: 0, width: 200}
-      name: when
-      type: datetime
-    - admin_ui: {order: 1, width: 120}
-      name: source
-      type: string
-    - admin_ui: {order: 2, width: 160}
-      name: kind
-      type: string
-    - admin_ui: {order: 3, width: 300}
-      name: message
-      type: string
-    - admin_ui: {order: 4, width: 300}
-      name: traceback
-      type: string
-    - admin_ui: {order: 5, width: 200}
-      name: page
-      type: string
-    - admin_ui: {order: 6, width: 120}
-      name: session
-      type: string
-    - admin_ui: {order: 7, width: 200}
-      name: user
-      target: users
-      type: link_single
-    indexes: []
-    server: full
-    title: Error log
   app_settings:
     client: none
     columns:
@@ -47,6 +16,53 @@ db_schema:
     indexes: []
     server: full
     title: App settings
+  error_log:
+    client: none
+    columns:
+    - admin_ui:
+        order: 0
+        width: 200
+      name: when
+      type: datetime
+    - admin_ui:
+        order: 1
+        width: 120
+      name: source
+      type: string
+    - admin_ui:
+        order: 2
+        width: 160
+      name: kind
+      type: string
+    - admin_ui:
+        order: 3
+        width: 300
+      name: message
+      type: string
+    - admin_ui:
+        order: 4
+        width: 300
+      name: traceback
+      type: string
+    - admin_ui:
+        order: 5
+        width: 200
+      name: page
+      type: string
+    - admin_ui:
+        order: 6
+        width: 120
+      name: session
+      type: string
+    - admin_ui:
+        order: 7
+        width: 200
+      name: user
+      target: users
+      type: link_single
+    indexes: []
+    server: full
+    title: Error log
   feedback:
     client: none
     columns:
@@ -162,6 +178,44 @@ db_schema:
     indexes: []
     server: full
     title: Prompt stats
+  scores:
+    client: none
+    columns:
+    - admin_ui:
+        order: 0
+        width: 200
+      name: plan
+      target: plans
+      type: link_single
+    - admin_ui:
+        order: 1
+        width: 200
+      name: owner
+      target: users
+      type: link_single
+    - admin_ui:
+        order: 2
+        width: 200
+      name: month
+      type: string
+    - admin_ui:
+        order: 3
+        width: 200
+      name: numbers
+      type: simpleObject
+    - admin_ui:
+        order: 4
+        width: 200
+      name: note
+      type: string
+    - admin_ui:
+        order: 5
+        width: 200
+      name: updated
+      type: datetime
+    indexes: []
+    server: full
+    title: Scores
   users:
     client: none
     columns:
@@ -310,13 +364,14 @@ db_schema:
     server: full
     title: Wins
 metadata:
-  description: "Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and reporting, in the order an ad agency would do the work."
-  logo_img: "asset:icon-512.png"
-  title: "Marguru: market your business like an ad agency would"
+  description: Describe your business and get copy-ready AI prompts for ads, Google Maps, SEO, content and reporting, in the
+    order an ad agency would do the work.
+  logo_img: asset:icon-512.png
+  title: 'Marguru: market your business like an ad agency would'
 name: Marguru
 native_deps:
   head_html: |
-    <script src="_/theme/legal-kit.js?v=a1b25ec412"></script>
+    <script src="_/theme/legal-kit.js?v=6e8f955bdd"></script>
     <!-- seo:start (APP_MAKER/seo: edit seo/apps/marguru.json and run seo.py, not here) -->
     <link rel="canonical" href="https://marguru.anvil.app/">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -373,9 +428,9 @@ native_deps:
     <!-- Prepsto feedback panel: every "Submit feedback" link and button opens it (it is the only feedback channel). No floating button, no cookies, nothing loads until it is opened. Codes: APP_MAKER/prepsto-links.json -->
     <script src="https://prepsto.com/_/theme/widget.js" data-prepsto="ftg7ber" data-button="false" data-label="Submit feedback" async></script>
     <link rel="stylesheet" href="_/theme/icons.css?v=ac4b0b42ca">
-    <link rel="stylesheet" href="_/theme/app.css?v=de8169a41d">
+    <link rel="stylesheet" href="_/theme/app.css?v=438fd9a4e4">
     <script src="_/theme/app-kit.js?v=c8ec6ffe3c"></script>
-    <script src="_/theme/mg.js?v=079a4f52b4"></script>
+    <script src="_/theme/mg.js?v=616a734087"></script>
 package_name: Marguru
 runtime_options:
   client_version: '3'
